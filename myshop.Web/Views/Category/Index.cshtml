@@ -1,8 +1,10 @@
-﻿@model IEnumerable<Category>
+﻿@using myshop.Web.ViewModels
+@model List<CategoryVM>
 
 @{
     ViewBag.PageTitle = "Category Management";
     ViewBag.CardTitle = "View Categories";
+ 
 }
 
 <!-- Icons -->
@@ -119,11 +121,10 @@
     </div>
 
     <div class="top-btn">
-        <a class="btn btn-primary" href="/Admin/Category/Create">
+        <a class="btn btn-primary" asp-action="Create">
             <i class="fa-solid fa-circle-plus me-1"></i> Create Category
         </a>
     </div>
-
     <table class="table-custom">
         <thead>
             <tr>
@@ -138,15 +139,11 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@Html.Raw(item.Description)</td>
-                    <td>@item.CreatedTime.ToString("dd MMM yyyy")</td>
+                    <td>@item.Description</td>
+                    <td>@item.CreatedTime.ToString("yyyy-MM-dd")</td>
                     <td>
-                        <a class="btn btn-success me-1" href="/Admin/Category/Edit/@item.Id">
-                            <i class="fa-solid fa-pen-to-square"></i> Edit
-                        </a>
-                        <a class="btn btn-danger" href="/Admin/Category/Delete/@item.Id">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </a>
+                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pen-fill"></i></a>
+                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3"></i></a>
                     </td>
                 </tr>
             }

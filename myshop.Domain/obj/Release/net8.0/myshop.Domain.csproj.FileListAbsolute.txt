@@ -1,0 +1,13 @@
+D:\Abu-damn-Training\myshop.Domain\bin\Release\net8.0\myshop.Domain.deps.json
+D:\Abu-damn-Training\myshop.Domain\bin\Release\net8.0\myshop.Domain.dll
+D:\Abu-damn-Training\myshop.Domain\bin\Release\net8.0\myshop.Domain.pdb
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.csproj.AssemblyReference.cache
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.AssemblyInfoInputs.cache
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.AssemblyInfo.cs
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.csproj.CoreCompileInputs.cache
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.sourcelink.json
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.dll
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\refint\myshop.Domain.dll
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\myshop.Domain.pdb
+D:\Abu-damn-Training\myshop.Domain\obj\Release\net8.0\ref\myshop.Domain.dll

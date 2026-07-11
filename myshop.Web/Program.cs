@@ -1,10 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using myshop.DataAccess;
-using myshop.Entities.Models;
+using myshop.DAL.Data;
+using myshop.DAL.Interfaces;
+using myshop.Domain.Models;
+using NuGet.Protocol.Core.Types;
 using Stripe;
 using System;
+
+using myshop.DAL.Interfaces;
+using myshop.DAL.Repositories;
+using myshop.BLL.Services;
+using myshop.Web.IdentitySeeds;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,26 +19,65 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")
+    builder.Configuration.GetConnectionString("DBConnection")
     )) ;
 
 builder.Services.AddIdentity<ApplicationUser,IdentityRole>(
     options=>options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(4)
-    ).AddDefaultTokenProviders().AddDefaultUI()
+    ).AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+});
 
 
 builder.Services.AddHttpContextAccessor();
+//DI here---------------------------------------------------------------
+builder.Services.AddScoped<ApplicationDbContext>();
+builder.Services.AddScoped<CategoryServices>();
+builder.Services.AddScoped<ProductServices>();
+builder.Services.AddScoped<AccountServices>();
+builder.Services.AddScoped<UserManagmentServices>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IAccountRepo, AccounttRepo>();
+builder.Services.AddScoped<IUserManagment, UserManagment>();
+
+//----------------------------------------------------------------------
+builder.Services.AddAutoMapper(cfg =>
+{
+
+    cfg.AddProfile<myshop.BLL.Mapping.Mapping>();
+    cfg.AddProfile<myshop.Web.PresentationMapper.PLMapper>();
+
+});
+//---------------------------------------------------------------------- Seeders
+builder.Services.AddAuthorization(options =>
+{
+
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+
+});
 
 
-builder.Services.AddDistributedMemoryCache();
+
+    builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var services = scope.ServiceProvider;
+
+    var db = services.GetRequiredService<ApplicationDbContext>();
+
     db.Database.Migrate();
+
+    await IdentitySeeders.AddAllSeeds(services);
 }
+
 
 
 
@@ -63,7 +109,7 @@ app.MapRazorPages();
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Product}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

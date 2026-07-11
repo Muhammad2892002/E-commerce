@@ -1,111 +1,191 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
-using myshop.DataAccess;
-using myshop.Entities.Models;
-using myshop.Entities.ViewModels;
+using myshop.BLL.Dto;
+using myshop.BLL.Services;
+using myshop.DAL.Data;
+using myshop.Domain.Models;
+using myshop.Web.ViewModels;
+
 
 namespace myshop.Web.Areas.Admin.Controllers
 {
+    [Authorize(Policy = "AdminOnly")]
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        //private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly CategoryServices _categoryServices;
+        private readonly ProductServices _productServices;
+        private readonly IMapper _mapper;
+        public static List<ProductVM>? allProducts;
 
-        public ProductController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IWebHostEnvironment webHostEnvironment, CategoryServices catSer, IMapper mapper, ProductServices productservice)
         {
-            _context = context;
+            _mapper = mapper;
+
             _webHostEnvironment = webHostEnvironment;
+            _categoryServices = catSer;
+            _productServices = productservice;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult GetData()
-        {
-            var products = _context.Products
-                .Include(x => x.Category)
-                .Select(x => new
-                {
-                    id = x.Id,
-                    name = x.Name,
-                    description = x.Description,
-                    price = x.Price,
-                    categoryName = x.Category.Name
-                })
-                .ToList();
-
-            return Json(new { data = products });
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            ProductVM productVM = new ProductVM()
+            try
             {
-                Product = new Product(),
-                CategoryList = _context.Categories.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
-            };
-            return View(productVM);
+
+                var allProductsDto = await _productServices.GetAllProducts();
+                allProducts = _mapper.Map<List<ProductVM>>(allProductsDto);
+
+
+                return View(allProducts);
+
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework like Serilog, NLog, etc.)
+                // For simplicity, we'll just return the error message in the view.
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return Redirect("www.google.com");
+            }
+        }
+
+        //[HttpGet]
+        //public IActionResult GetData()
+        //{
+        //    var products = _context.Products
+        //        .Include(x => x.Category)
+        //        .Select(x => new
+        //        {
+        //            id = x.Id,
+        //            name = x.Name,
+        //            description = x.Description,
+        //            price = x.Price,
+        //            categoryName = x.Category.Name
+        //        })
+        //        .ToList();
+
+        //    return Json(new { data = products });
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            try
+            {
+                TempData["IsFailedToAdd"] = false;
+                var allCats = (from cats in await _categoryServices.GetAllcategories()
+                               select new CategoryVM()
+                               {
+                                   Id = cats.Id,
+                                   Name = cats.Name,
+
+
+                               }).ToList();
+                ViewBag.AllCats = allCats;
+
+                return View();
+            }
+            catch (Exception ex) {
+                return View();
+
+            }
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM productVM,IFormFile file)
+        public async Task<IActionResult> Create(ProductVM productVM, IFormFile? file)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string RootPath = _webHostEnvironment.WebRootPath;
-                if (file != null)
+                //file = (IFormFile)productVM.Img;
+                if (ModelState.IsValid)
                 {
-                    string filename = Guid.NewGuid().ToString();
-                    var Upload = Path.Combine(RootPath, @"Images\Products");
-                    var ext = Path.GetExtension(file.FileName);
-
-                    using (var filestream = new FileStream(Path.Combine(Upload,filename+ext),FileMode.Create))
+                    string RootPath = _webHostEnvironment.WebRootPath;
+                    if (file != null)
                     {
-                        file.CopyTo(filestream);
-                    }
-                    productVM.Product.Img = @"Images\Products\" + filename + ext;
-                }
+                        string filename = Guid.NewGuid().ToString();
+                        var Upload = Path.Combine(RootPath, @"Images\Products");
+                        var ext = Path.GetExtension(file.FileName);
 
-                _context.Products.Add(productVM.Product);
-                _context.SaveChanges();
-                TempData["Create"] = "Item has Created Successfully";
-                return RedirectToAction("Index");
+                        using (var filestream = new FileStream(Path.Combine(Upload, filename + ext), FileMode.Create))
+                        {
+                            file.CopyTo(filestream);
+                        }
+                        productVM.Img = @"Images\Products\" + filename + ext;
+                    }
+                    
+
+
+                    var productObj = _mapper.Map<ProductDto>(productVM);
+                    var result =await _productServices.AddNewProduct(productObj);
+                    if (result) { 
+                    TempData["Create"] = "Item has Created Successfully";
+                        TempData["IsFailedToAdd"] = false;
+                        return RedirectToAction("Index");
+                    }
+                    TempData["IsFailedToAdd"] = true;
+                    var allCats = (from cats in await _categoryServices.GetAllcategories()
+                                   select new CategoryVM()
+                                   {
+                                       Id = cats.Id,
+                                       Name = cats.Name,
+
+
+                                   }).ToList();
+                    ViewBag.AllCats = allCats;
+                }
+                TempData["IsFailedToAdd"] = true;
+                
+                return View(productVM);
             }
-            return View(productVM.Product);
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework like Serilog, NLog, etc.)
+                // For simplicity, we'll just return the error message in the view.
+                ModelState.AddModelError(string.Empty, $"An error occurred: {ex.Message}");
+                return View(productVM);
+            }
         }
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
+            TempData["IsFailedToAdd"] = false;
             if (id == null || id == 0)
             {
                 return NotFound();
             }
+            var allCats = (from cats in await _categoryServices.GetAllcategories()
+                           select new CategoryVM()
+                           {
+                               Id = cats.Id,
+                               Name = cats.Name,
 
-            ProductVM productVM = new ProductVM()
+
+                           }).ToList();
+            ViewBag.AllCats = allCats;
+            var productAsDto = await _productServices.GetProductById(id);
+            var ProductAsVm = _mapper.Map<ProductVM>(productAsDto);
+
+            var productExistince = ProductAsVm;
+            if (productExistince != null)
             {
-                Product = _context.Products.FirstOrDefault(x => x.Id == id),
-                CategoryList = _context.Categories.Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
-            };
+                return View(productExistince);
 
-            return View(productVM);
+            }
+            else {
+
+                return RedirectToAction("Index");
+
+            }
+
+
         }
-        
+
         [HttpPost]
-        public IActionResult Edit(ProductVM productVM, IFormFile? file)
+        public async Task<IActionResult> Edit(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -117,9 +197,9 @@ namespace myshop.Web.Areas.Admin.Controllers
                     var Upload = Path.Combine(RootPath, @"Images\Products");
                     var ext = Path.GetExtension(file.FileName);
 
-                    if (productVM.Product.Img != null)
+                    if (productVM.Img != null)
                     {
-                        var oldimg = Path.Combine(RootPath, productVM.Product.Img.TrimStart('\\'));
+                        var oldimg = Path.Combine(RootPath, productVM.Img.TrimStart('\\'));
 
                         if (System.IO.File.Exists(oldimg))
                         {
@@ -132,41 +212,40 @@ namespace myshop.Web.Areas.Admin.Controllers
                         file.CopyTo(filestream);
                     }
 
-                    productVM.Product.Img = @"Images\Products\" + filename + ext;
+                    productVM.Img = @"Images\Products\" + filename + ext;
                 }
 
-                _context.Products.Update(productVM.Product);
-                _context.SaveChanges();
+                var isUpdated = await _productServices.EditProduct(_mapper.Map<ProductDto>(productVM));
+                if (!isUpdated) {
+                    TempData["IsFailedToAdd"] = true;
+                    var allCats = (from cats in await _categoryServices.GetAllcategories()
+                                   select new CategoryVM()
+                                   {
+                                       Id = cats.Id,
+                                       Name = cats.Name,
+
+
+                                   }).ToList();
+                    ViewBag.AllCats = allCats;
+
+                    return View(productVM);
+                
+                }
 
                 TempData["Update"] = "Data has Updated Successfully";
                 return RedirectToAction("Index");
             }
 
-            return View(productVM.Product);
+            return View(productVM);
         }
-        
-        [HttpDelete]
-        public IActionResult Delete(int? id)
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? Id)
         {
-            var productIndb = _context.Products.FirstOrDefault(x => x.Id == id);
+            var IsDeleted =await _productServices.DeleteProduct(Id);
 
-            if (productIndb == null)
-            {
-                return Json(new { success = false, message = "Error while Deleting" });
-            }
 
-            _context.Products.Remove(productIndb);
-
-            var oldimg = Path.Combine(_webHostEnvironment.WebRootPath, productIndb.Img.TrimStart('\\'));
-
-            if (System.IO.File.Exists(oldimg))
-            {
-                System.IO.File.Delete(oldimg);
-            }
-
-            _context.SaveChanges();
-
-            return Json(new { success = true, message = "file has been Deleted" });
+            return RedirectToAction("Index");
         }
 
 

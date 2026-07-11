@@ -1,0 +1,16 @@
+D:\Abu-damn-Training\myshop.DAL\bin\Debug\net8.0\myshop.DAL.deps.json
+D:\Abu-damn-Training\myshop.DAL\bin\Debug\net8.0\myshop.DAL.dll
+D:\Abu-damn-Training\myshop.DAL\bin\Debug\net8.0\myshop.DAL.pdb
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.AssemblyInfoInputs.cache
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.AssemblyInfo.cs
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.csproj.CoreCompileInputs.cache
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.sourcelink.json
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.dll
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\refint\myshop.DAL.dll
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.pdb
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\ref\myshop.DAL.dll
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.csproj.AssemblyReference.cache
+D:\Abu-damn-Training\myshop.DAL\bin\Debug\net8.0\myshop.Domain.dll
+D:\Abu-damn-Training\myshop.DAL\bin\Debug\net8.0\myshop.Domain.pdb
+D:\Abu-damn-Training\myshop.DAL\obj\Debug\net8.0\myshop.DAL.csproj.Up2Date

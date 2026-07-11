@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using myshop.Entities.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using myshop.DAL.Data;
+using myshop.Domain.Models;
 using System.Diagnostics;
 
 namespace myshop.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
+
         {
             _logger = logger;
         }

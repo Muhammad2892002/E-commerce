@@ -1,0 +1,214 @@
+﻿@using myshop.Web.ViewModels
+@model List<DisplayUserVM>
+
+<div class="card shadow-sm border-0 rounded-4">
+    <div class="card-header bg-primary text-white py-3">
+        <h5 class="mb-0">
+            <i class="bi bi-table"></i> Users List
+        </h5>
+    </div>
+
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+
+                        <th>User name</th>
+                        <th>Email</th>
+                        <th>Current Role</th>
+                        <th width="120">Lock status</th>
+                        <th width="160" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                            <td>@user.CurrentRole</td>
+                            @if (user.LockStatus)
+                            {
+                                <td>
+                                    <span class="badge bg-success">Active</span>
+                                </td>
+
+                            }
+                            else
+                            {
+                                <td>
+                                    <span class="badge bg-danger">Not active</span>
+                                </td>
+                            }
+                            @if (user.CurrentRole == "Admin")
+                            {
+                                <td class="text-center">
+                                    <div class="d-flex gap-2 justify-content-center">
+
+                                        <!-- Demote Button -->
+                                        <a class="btn btn-sm btn-outline-danger"
+                                           asp-action="DemoteUser"
+                                           asp-route-Id="@user.Id">
+                                            <i class="bi bi-arrow-down-circle me-1"></i>Demote
+                                        </a>
+
+                                        <!-- Lock/Unlock Button -->
+                                        @if (user.LockStatus == true)
+                                        {
+                                            <a class="btn btn-sm btn-outline-warning"
+                                               asp-action="LockUser"
+                                               asp-route-Id="@user.Id">
+                                                <i class="bi bi-lock-fill me-1"></i>Lock
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-primary text-white"
+                                               asp-action="UnlockUser"
+                                               asp-route-Id="@user.Id">
+                                                <i class="bi bi-unlock-fill me-1"></i>Unlock
+                                            </a>
+                                        }
+
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-center">
+                                    <div class="d-flex gap-2 justify-content-center">
+
+                                        <!-- Promote Button -->
+                                        <a class="btn btn-sm btn-outline-success"
+                                           asp-action="PremoteUser"
+                                           asp-route-Id="@user.Id">
+                                            <i class="bi bi-arrow-up-circle me-1"></i>Promote
+                                        </a>
+
+                                        <!-- Lock/Unlock Button -->
+                                        @if (user.LockStatus == true)
+                                        {
+                                            <a class="btn btn-sm btn-outline-warning"
+                                               asp-action="LockUser"
+                                               asp-route-Id="@user.Id">
+                                                <i class="bi bi-lock-fill me-1"></i>Lock
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-sm btn-primary text-white"
+                                               asp-action="UnlockUser"
+                                               asp-route-Id="@user.Id">
+                                                <i class="bi bi-unlock-fill me-1"></i>Unlock
+                                            </a>
+                                        }
+
+                                    </div>
+                                </td>
+                            }
+
+                           
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (ViewBag.LockoutFlagMsgAppear)
+{
+
+    <div class="toast-container position-fixed top-0 end-0 p-4">
+        <div id="lockoutToast"
+             class="toast border-0 shadow-lg"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
+
+            <div class="toast-header bg-warning text-dark border-0">
+                <span class="fs-5 me-2">🔒</span>
+                <strong class="me-auto">Account Status</strong>
+                <small class="text-dark opacity-75">Now</small>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="toast-body bg-light text-dark py-3 px-4">
+                @ViewBag.LockOutMsgResult
+            </div>
+        </div>
+    </div>
+
+         
+       
+}
+@if (ViewBag.RoleFlagChanged)
+{
+
+    
+
+
+    <div class="toast-container position-fixed top-0 end-0 p-4">
+        <div id="roleToast"
+             class="toast border-0 shadow-lg"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
+
+            <div class="toast-header bg-warning text-dark border-0">
+               
+                <strong class="me-auto">Account Role</strong>
+                <small class="text-dark opacity-75">Now</small>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="toast-body bg-light text-dark py-3 px-4">
+                @ViewBag.RoleMsgIfChanged
+            </div>
+        </div>
+    </div>
+
+         
+       
+}
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var toastEl = document.getElementById("lockoutToast");
+
+        if (toastEl) {
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var toastEl = document.getElementById("roleToast");
+
+        if (toastEl) {
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>

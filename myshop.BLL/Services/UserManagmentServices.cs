@@ -1,0 +1,73 @@
+﻿using AutoMapper;
+using myshop.BLL.Dto;
+using myshop.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace myshop.BLL.Services
+{
+    public class UserManagmentServices
+    {
+        private readonly IUserManagment _userManagment;
+        private readonly IMapper _mapper;
+        public UserManagmentServices(IUserManagment userManagment,IMapper mapper) { 
+           
+            _userManagment = userManagment;
+            _mapper = mapper;
+        
+        }
+        public async Task<List<DisplayUserDtoBLL>> GetAllUsers() { 
+          
+            var allUsersFromDAL=await _userManagment.GetAllUsers();
+            var allUsersAsDTOBLL = allUsersFromDAL.Select(obj=>new DisplayUserDtoBLL() { 
+                Id = obj.Id,
+              UserName = obj.UserName,
+              CurrentRole = obj.CurrentRole,
+              Email=obj.Email,
+              LockStatus = obj.LockStatus,
+
+            
+            }).ToList();
+
+
+            return allUsersAsDTOBLL;
+            
+        
+        }
+
+        public async Task<string> ChangeRole(string Id,string role,string obj) {
+
+            var roleChangedMsg= await _userManagment.ChangeRole(Id,role,obj);
+            if (roleChangedMsg != null)
+            {
+                if (roleChangedMsg == "Your account role has been changed Successfully") {
+                    return roleChangedMsg;
+                
+                
+                }
+                return roleChangedMsg;
+                
+
+               
+            }
+            else {
+
+                return roleChangedMsg;
+            }
+
+            
+        
+        }
+
+        public async Task<string> ChangeLookOutAccount(string Id, string CurrentAccountId,bool lockOrNot) {
+           var lockResult= await _userManagment.ChangeLockoutAccount(Id,CurrentAccountId,lockOrNot);
+
+            return lockResult;
+        
+        }
+    }
+}

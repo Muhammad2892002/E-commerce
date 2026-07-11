@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\visual-studio-programs\\E-Commerce-Startup-Template\\ShopHub-Startup-Template\\myshop.Web\\myshop.Web.csproj": {}
+    "D:\\Abu-damn-Training\\myshop.Web\\myshop.Web.csproj": {}
   },
   "projects": {
-    "D:\\visual-studio-programs\\E-Commerce-Startup-Template\\ShopHub-Startup-Template\\myshop.Web\\myshop.Web.csproj": {
+    "D:\\Abu-damn-Training\\myshop.BLL\\myshop.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\visual-studio-programs\\E-Commerce-Startup-Template\\ShopHub-Startup-Template\\myshop.Web\\myshop.Web.csproj",
-        "projectName": "myshop.Web",
-        "projectPath": "D:\\visual-studio-programs\\E-Commerce-Startup-Template\\ShopHub-Startup-Template\\myshop.Web\\myshop.Web.csproj",
-        "packagesPath": "D:\\NuGet_Cache",
-        "outputPath": "D:\\visual-studio-programs\\E-Commerce-Startup-Template\\ShopHub-Startup-Template\\myshop.Web\\obj\\",
+        "projectUniqueName": "D:\\Abu-damn-Training\\myshop.BLL\\myshop.BLL.csproj",
+        "projectName": "myshop.BLL",
+        "projectPath": "D:\\Abu-damn-Training\\myshop.BLL\\myshop.BLL.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Abu-damn-Training\\myshop.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "D:\\vs\\shared_component\\NuGetPackages"
         ],
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -26,10 +26,176 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj": {
+                "projectPath": "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "framework": "net8.0",
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[16.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj",
+        "projectName": "myshop.DAL",
+        "projectPath": "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Abu-damn-Training\\myshop.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\vs\\shared_component\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "framework": "net8.0",
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj": {
+                "projectPath": "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "framework": "net8.0",
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.11, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.28, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.28, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj",
+        "projectName": "myshop.Domain",
+        "projectPath": "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Abu-damn-Training\\myshop.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\vs\\shared_component\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -44,41 +210,138 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.3.11, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.3.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Abu-damn-Training\\myshop.Web\\myshop.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Abu-damn-Training\\myshop.Web\\myshop.Web.csproj",
+        "projectName": "myshop.Web",
+        "projectPath": "D:\\Abu-damn-Training\\myshop.Web\\myshop.Web.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Abu-damn-Training\\myshop.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\vs\\shared_component\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "framework": "net8.0",
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Abu-damn-Training\\myshop.BLL\\myshop.BLL.csproj": {
+                "projectPath": "D:\\Abu-damn-Training\\myshop.BLL\\myshop.BLL.csproj"
+              },
+              "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj": {
+                "projectPath": "D:\\Abu-damn-Training\\myshop.DAL\\myshop.DAL.csproj"
+              },
+              "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj": {
+                "projectPath": "D:\\Abu-damn-Training\\myshop.Domain\\myshop.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "framework": "net8.0",
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[16.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.28, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
             },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.9, )"
+              "version": "[8.0.28, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[7.0.8, )"
+              "version": "[8.0.23, )"
             },
             "Stripe.net": {
               "target": "Package",
@@ -108,7 +371,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
