@@ -1,104 +1,77 @@
-ggggg# ShopHub Startup Template
+E-Commerce Management System
+Overview
 
-A clean ASP.NET Core MVC startup template designed for students to build E-Commerce projects using the Repository Pattern and Entity Framework Core.
+This project is an E-Commerce Management System built with ASP.NET Core MVC following the N-Tier Architecture. The application focuses on clean architecture, maintainability, and scalability by separating responsibilities into different layers.
 
-## Features
+The project includes product and category management, user authentication, authorization, and administrative user management.
 
-- ASP.NET Core MVC
-- Entity Framework Core
-- Repository Pattern
-- SQL Server Integration
-- Identity Authentication
-- Bootstrap UI
-- AdminLTE Dashboard
-- DataTables Integration
-- Toastr Notifications
-- SweetAlert2
-- TinyMCE Support (Optional)
-- File Upload Support
-- Session Configuration
+Features
+Authentication & Authorization
+User Registration
+User Login & Logout
+ASP.NET Core Identity Authentication
+Role-Based Authorization
+Input Validation for Authentication Forms
+Product Management
+Create Product
+View Products
+Update Product
+Delete Product
+Server-side Validation
+Category Management
+Create Category
+View Categories
+Update Category
+Delete Category
+Server-side Validation
+User Administration
+View Registered Users
+Promote Users to Admin
+Demote Admins to Users
+Lock User Accounts
+Unlock User Accounts
 
-## Included Modules
+Architecture
 
-### Category
-- Create Category
-- View Categories
-- Edit Category
-- Delete Category
+This project follows the N-Tier Architecture, separating the application into distinct layers to improve maintainability, scalability, and separation of concerns.
 
-### Product
-- Create Product
-- Upload Product Image
-- View Products
-- Edit Product
-- Delete Product
+The project consists of the following layers:
 
-## Project Structure
+Presentation Layer – Handles the user interface, controllers, views, and user interactions.
+Business Logic Layer (BLL) – Contains the business rules, services, validation logic, DTOs, and application workflows.
+Data Access Layer (DAL) – Manages data access through repositories, the Unit of Work pattern, and Entity Framework Core.
+Domain Layer – Contains the core entities, interfaces, and domain models shared across the application.
+Database – SQL Server database used to persist application data.
 
-```
-Controllers/
-DataAccess/
-Entities/
-    Models/
-    ViewModels/
-Repositories/
-Views/
-wwwroot/
-```
+Each layer has a specific responsibility, making the application easier to maintain, test, and extend while keeping business logic independent from data access and presentation.
 
-## Technologies
+Validation
 
-- ASP.NET Core MVC
-- Entity Framework Core
-- SQL Server
-- LINQ
-- Bootstrap 5
-- AdminLTE 3
-- jQuery
-- DataTables
+The application includes validation for user input to help maintain data integrity.
 
-## Database
+Examples include:
 
-Update the connection string inside:
+Required fields
+Email validation
+Password validation
+Product validation
+Category validation
 
-```
-appsettings.json
-```
+Database
 
-Then run:
+The project uses:
 
-```bash
-Update-Database
-```
+SQL Server
+Entity Framework Core
+Code First Migrations
+Admin Features
 
-or
+Administrators can:
 
-```bash
-dotnet ef database update
-```
-
-## Default Features
-
-- Repository Pattern
-- Dependency Injection
-- CRUD Operations
-- File Upload
-- Entity Relationships
-- ViewModels
-- TempData Notifications
-
-## Notes
-
-This template is intended as a starting point for educational E-Commerce projects. Students are expected to extend it with additional features such as:
-
-- Shopping Cart
-- Orders
-- Payments
-- Reviews
-- Wishlist
-- Authentication Enhancements
-- Dashboard Analytics
-
-## License
-
-Educational Use Only.
+Manage Products
+Manage Categories
+View Users
+Promote Users to Admin
+Demote Admins
+Lock User Accounts
+Unlock User Accounts
