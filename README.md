@@ -57,6 +57,10 @@ Password validation
 Product validation
 Category validation
 
+Note
+
+The current implementation does not include validation to check if the category exists when adding a new product.
+
 Database
 
 The project uses:
@@ -75,3 +79,24 @@ Promote Users to Admin
 Demote Admins
 Lock User Accounts
 Unlock User Accounts
+
+#####images
+Login  Page
+
+<img width="497" height="429" alt="image" src="https://github.com/user-attachments/assets/f650677d-b9cd-4a60-820c-f08c3bc3db47" />
+
+Registration Page
+<img width="256" height="394" alt="image" src="https://github.com/user-attachments/assets/fa9b1145-f213-4987-93ff-7bc249ccec16" />
+
+
+Product Index Page 
+<img width="758" height="376" alt="image" src="https://github.com/user-attachments/assets/ff2e8c62-8b9a-4e3c-a9c5-58789bb6f546" />
+Category Index Page
+
+<img width="902" height="461" alt="image" src="https://github.com/user-attachments/assets/90d4d714-8cdd-48cc-815f-286b7ff8d09f" />
+
+User Index Page
+<img width="914" height="451" alt="image" src="https://github.com/user-attachments/assets/95e7bc1f-f13e-4348-926f-c852f03e5170" />
+
+
+
