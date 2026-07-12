@@ -1,4 +1,4 @@
-# ShopHub Startup Template
+ggggg# ShopHub Startup Template
 
 A clean ASP.NET Core MVC startup template designed for students to build E-Commerce projects using the Repository Pattern and Entity Framework Core.
 
