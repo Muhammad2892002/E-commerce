@@ -72,6 +72,7 @@ namespace myshop.Web.Areas.Admin.Controllers
         //}
 
         [HttpGet]
+        //[AcceptVerbs("QUERY")]
         public async Task<IActionResult> Create()
         {
             try

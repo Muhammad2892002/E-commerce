@@ -14,6 +14,8 @@ namespace myshop.DAL.Repositories
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+      
+        
 
         public AccounttRepo(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser>signInManager) {
             _userManager = userManager;

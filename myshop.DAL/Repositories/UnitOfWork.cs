@@ -1,5 +1,7 @@
-﻿using myshop.DAL.Data;
+﻿using Microsoft.Extensions.Logging;
+using myshop.DAL.Data;
 using myshop.DAL.Interfaces;
+using myshop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +13,24 @@ namespace myshop.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _context;
-         public ICategory Category { get; }
+        private readonly ILogger<UnitOfWork> _logger;
+        //public IGenericRepository<Category> GenricCategory { get; }
         public IProduct Product { get; }
-      
-        public UnitOfWork(ApplicationDbContext context)
+        public ICategory Category { get; }
+
+
+        //Category IUnitOfWork.Category => throw new NotImplementedException();
+
+        public UnitOfWork(ApplicationDbContext context,ILogger<UnitOfWork> logger)
         {
             _context = context;
-            Category = new CategoryRepo(context);
-            Product = new ProductRepo(context);
+            _logger = logger;
+
+            //GenricCategory = new CategoryRepo(context,_logger);
+            Category=new CategoryRepo(context,_logger);
+
+            Product = new ProductRepo(context,_logger);
+         
            
         }
 

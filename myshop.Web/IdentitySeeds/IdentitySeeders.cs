@@ -13,6 +13,7 @@ namespace myshop.Web.IdentitySeeds
             await SeedUser(service);
 
         }
+       
 
         public static async Task SeedRolesAsync(IServiceProvider serviceProvider) {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

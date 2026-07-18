@@ -13,39 +13,20 @@ using System.Threading.Tasks;
 
 namespace myshop.DAL.Repositories
 {
-    public class CategoryRepo : ICategory
+    public class CategoryRepo : GenericRepository<Category>,ICategory
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
        
 
-        public CategoryRepo(ApplicationDbContext context)
+        public CategoryRepo(ApplicationDbContext context,ILogger logger) :base(context,logger)
         {
             _context = context;
+            _logger = logger;
           
         }
 
-        public Task AddNewCategory(Domain.Models.Category obj)
-        {
-            try
-            {
-                
-                _context.Categories.Add(obj);
-                _context.SaveChanges();
-                return Task.CompletedTask;
-
-            }
-            catch {
-         
-                throw ;
-            
-            }
-        }
-
-        public async Task<List<Domain.Models.Category>> AllCategoryAsync()
-        {
-           List<Category> allCategory= await _context.Categories.ToListAsync<Category>();
-            return allCategory;
-        }
+     
 
         public async Task<bool> CheckCategoryExistince(Category obj)
         {
@@ -79,35 +60,6 @@ namespace myshop.DAL.Repositories
            
         }
 
-        public async Task DeleteCategory(int id)
-        {
-            var category = await GetCategoryById(id);
-            if (category != null)
-            {
-                _context.Categories.Remove(category);
-                _context.SaveChanges() ;
-
-            }
-            else
-            {
-
-                throw new Exception("Category do not exist");
-
-            }
-        }
-
-    
-
-       public async Task EditCategory(Domain.Models.Category obj)
-        {
-          _context.Categories.Update(obj);
-            _context.SaveChangesAsync();
-           
-        }
-
-        public async Task<Category> GetCategoryById(int id)
-        {
-            return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
-        }
+     
     }
 }

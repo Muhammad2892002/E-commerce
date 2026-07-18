@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace myshop.DAL.Interfaces
 {
-    public interface ICategory
+    public interface ICategory :IGenericRepository<Category>
     {
-        public Task AddNewCategory(Category obj);
-        public Task EditCategory(Category obj);
-
-        public Task DeleteCategory(int id);
-
-        public Task<List<Category>> 
-            AllCategoryAsync();
-
-        public Task<Category> GetCategoryById(int id);
+       
+     
 
         public Task<bool> CheckCategoryExistince(Category obj);
 

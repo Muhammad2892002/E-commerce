@@ -1,4 +1,5 @@
-﻿using System;
+﻿using myshop.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,11 @@ namespace myshop.DAL.Interfaces
 {
     public interface IUnitOfWork 
     {
-         public ICategory Category { get; }
+        //public IGenericRepository<Category> GenricCategory { get; }
         public IProduct Product { get; }
+        public ICategory Category { get; }
+            
+      
 
         
         Task<int> SaveChangesAsync();

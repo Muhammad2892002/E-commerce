@@ -12,6 +12,7 @@ using myshop.DAL.Interfaces;
 using myshop.DAL.Repositories;
 using myshop.BLL.Services;
 using myshop.Web.IdentitySeeds;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +45,10 @@ builder.Services.AddScoped<AccountServices>();
 builder.Services.AddScoped<UserManagmentServices>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IAccountRepo, AccounttRepo>();
+
 builder.Services.AddScoped<IUserManagment, UserManagment>();
+
+
 
 //----------------------------------------------------------------------
 builder.Services.AddAutoMapper(cfg =>

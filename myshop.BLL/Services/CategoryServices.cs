@@ -27,11 +27,11 @@ namespace myshop.BLL.Services
         {
 
             var category = _mapper.Map<Category>(obj);
-            bool result = await _unitOfWork.Category.CheckCategoryExistince(category);
-            if (result)
+            var result = await _unitOfWork.Category.CreateAsync(category);
+            if (result!=null)
             {
 
-                await _unitOfWork.Category.AddNewCategory(category);
+                await _unitOfWork.Category.CreateAsync(category);
                 await _unitOfWork.SaveChangesAsync();
                 return true;
             }
@@ -43,9 +43,9 @@ namespace myshop.BLL.Services
         }
 
         public async Task<List<Category>> GetAllcategories() {
-            var allCats= await _unitOfWork.Category.AllCategoryAsync();
+            var allCats= await _unitOfWork.Category.GetAll();
        
-            return allCats;
+            return allCats.ToList();
             
         
         
@@ -55,7 +55,7 @@ namespace myshop.BLL.Services
 
 
 
-            var category= await _unitOfWork.Category.GetCategoryById(id);
+            var category= await _unitOfWork.Category.GetById(id);
             var categoryDto = _mapper.Map<CategoryDto>(category);
 
            
@@ -64,11 +64,11 @@ namespace myshop.BLL.Services
 
         public async Task<bool> EditCategory(CategoryDto obj) { 
            var catObj= _mapper.Map<Category>(obj);
-            bool result = await _unitOfWork.Category.CheckCategoryExistince(catObj);
-            if (result)
+            string result = await _unitOfWork.Category.UpdateAsync(catObj);
+            if (result!=null)
             {
 
-                await _unitOfWork.Category.EditCategory(catObj);
+                await _unitOfWork.Category.UpdateAsync(catObj);
                 await _unitOfWork.SaveChangesAsync();
                 return true;
             }
@@ -84,7 +84,7 @@ namespace myshop.BLL.Services
 
         public async Task DeleteCategory(int id) {
           
-            await _unitOfWork.Category.DeleteCategory(id);
+            await _unitOfWork.Category.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
         
         }

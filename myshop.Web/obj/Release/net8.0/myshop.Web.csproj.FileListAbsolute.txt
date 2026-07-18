@@ -576,3 +576,7 @@ D:\Abu-damn-Training\myshop.Web\obj\Release\net8.0\refint\myshop.Web.dll
 D:\Abu-damn-Training\myshop.Web\obj\Release\net8.0\myshop.Web.pdb
 D:\Abu-damn-Training\myshop.Web\obj\Release\net8.0\myshop.Web.genruntimeconfig.cache
 D:\Abu-damn-Training\myshop.Web\obj\Release\net8.0\ref\myshop.Web.dll
+D:\Abu-damn-Training\myshop.Web\bin\Release\net8.0\Microsoft.Extensions.WebEncoders.dll
+D:\Abu-damn-Training\myshop.Web\bin\Release\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Abu-damn-Training\myshop.Web\bin\Release\net8.0\System.Security.Cryptography.Xml.dll
+D:\Abu-damn-Training\myshop.Web\bin\Release\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

@@ -7,16 +7,8 @@ using System.Threading.Tasks;
 
 namespace myshop.DAL.Interfaces
 {
-    public interface IProduct
+    public interface IProduct :IGenericRepository<Product>
     {
-        public Task<bool> AddNewProduct(Product obj);
-
-        public Task<List<Product>> GetAllProducts();
-
-        public Task<bool> EditProduct(Product obj);
-
-        public Task<Product> GetProductById(int? Id);
-
-        public Task<bool> DeleteProduct(int?Id);
+        public Task<bool> CheckIfProductExist(Product obj);
     }
 }

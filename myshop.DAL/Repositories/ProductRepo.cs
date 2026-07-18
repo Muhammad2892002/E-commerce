@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using myshop.DAL.Data;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Models;
@@ -10,98 +11,29 @@ using System.Threading.Tasks;
 
 namespace myshop.DAL.Repositories
 {
-    public class ProductRepo : IProduct
+    public class ProductRepo : GenericRepository<Product>,IProduct
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
 
-        public ProductRepo(ApplicationDbContext context)
+        public ProductRepo(ApplicationDbContext context,ILogger logger) :base(context,logger)
         {
             _context = context;
+            logger=_logger;
 
         }
-        public async Task<bool> AddNewProduct(Product obj)
-        {
-            try {
-                var isProductExist = await CheckIfProductExist(obj);
-                if (isProductExist) {
-                    return false;
-                
-                }
+   
 
-                await _context.Products.AddAsync(obj);
-               
-               
-            
-                return true;
+      
 
-            }
-            catch {
-                return false;
-
-
-            }
-        }
-
-        public async Task<bool> DeleteProduct(int? Id)
-        {
-            try {
-
-                var product = await GetProductById(Id);
-                if (product != null)
-                {
-                    _context.Products.Remove(product);
-
-
-                    return true;
-
-                }
-                else {
-
-                    return false;
-
-                }
-
-            }
-            catch {
-                return false;
-
-
-            }
-        }
-
-        public async Task<bool> EditProduct(Product obj)
-        {
-            try
-            {
-                var isProductExist = await CheckIfProductExist(obj);
-                if (isProductExist) {
-
-                    return false;
-                
-                }
-                _context.Products.Update(obj);
-               
-                return true;
-            }
-            catch (Exception ex) {
-
-                return false;
-
-            }
-        }
-
-        public async Task<List<Product>> GetAllProducts()
+        public override async Task<IEnumerable<Product>> GetAll()
         {
             var allProducts = await _context.Products.Include(p => p.Category).ToListAsync();
             return allProducts;
 
         }
 
-        public async Task<Product> GetProductById(int? Id)
-        {
-            var ProductVar = await _context.Products.FirstOrDefaultAsync(p => p.Id == Id);
-            return ProductVar;
-        }
+      
 
         public async Task<bool> CheckIfProductExist(Product obj)
         {

@@ -571,7 +571,6 @@ D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.GeneratedMSBuildEdit
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.AssemblyInfoInputs.cache
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.AssemblyInfo.cs
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.csproj.CoreCompileInputs.cache
-D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.MvcApplicationPartsAssemblyInfo.cs
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.MvcApplicationPartsAssemblyInfo.cache
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.RazorAssemblyInfo.cache
 D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.RazorAssemblyInfo.cs
