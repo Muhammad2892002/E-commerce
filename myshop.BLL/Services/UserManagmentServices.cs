@@ -20,43 +20,62 @@ namespace myshop.BLL.Services
             _mapper = mapper;
         
         }
-        public async Task<List<DisplayUserDtoBLL>> GetAllUsers() { 
-          
-            var allUsersFromDAL=await _userManagment.GetAllUsers();
-            var allUsersAsDTOBLL = allUsersFromDAL.Select(obj=>new DisplayUserDtoBLL() { 
-                Id = obj.Id,
-              UserName = obj.UserName,
-              CurrentRole = obj.CurrentRole,
-              Email=obj.Email,
-              LockStatus = obj.LockStatus,
+        public async Task<List<DisplayUserDtoBLL>> GetAllUsers() {
+            try
+            {
 
+                var allUsersFromDAL = await _userManagment.GetAllUsers();
+                var allUsersAsDTOBLL = allUsersFromDAL.Select(obj => new DisplayUserDtoBLL()
+                {
+                    Id = obj.Id,
+                    UserName = obj.UserName,
+                    CurrentRole = obj.CurrentRole,
+                    Email = obj.Email,
+                    LockStatus = obj.LockStatus,
+
+
+                }).ToList();
+
+
+                return allUsersAsDTOBLL;
+            }
+            catch (Exception ex) {
+
+                throw new Exception(ex.Message.ToString());
             
-            }).ToList();
-
-
-            return allUsersAsDTOBLL;
+            }
             
         
         }
 
         public async Task<string> ChangeRole(string Id,string role,string obj) {
-
-            var roleChangedMsg= await _userManagment.ChangeRole(Id,role,obj);
-            if (roleChangedMsg != null)
+            try
             {
-                if (roleChangedMsg == "Your account role has been changed Successfully") {
+
+                var roleChangedMsg = await _userManagment.ChangeRole(Id, role, obj);
+                if (roleChangedMsg != null)
+                {
+                    if (roleChangedMsg == "Your account role has been changed Successfully")
+                    {
+                        return roleChangedMsg;
+
+
+                    }
                     return roleChangedMsg;
-                
-                
+
+
+
                 }
-                return roleChangedMsg;
-                
+                else
+                {
 
-               
+                    return roleChangedMsg;
+                }
             }
-            else {
+            catch (Exception ex) {
 
-                return roleChangedMsg;
+                throw new Exception(ex.Message.ToString());
+            
             }
 
             
@@ -64,9 +83,17 @@ namespace myshop.BLL.Services
         }
 
         public async Task<string> ChangeLookOutAccount(string Id, string CurrentAccountId,bool lockOrNot) {
-           var lockResult= await _userManagment.ChangeLockoutAccount(Id,CurrentAccountId,lockOrNot);
+            try
+            {
+                var lockResult = await _userManagment.ChangeLockoutAccount(Id, CurrentAccountId, lockOrNot);
 
-            return lockResult;
+                return lockResult;
+            }
+            catch (Exception ex) { 
+             
+                throw new Exception($"{ex.Message}");
+            
+            }
         
         }
     }

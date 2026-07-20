@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Dto_temp;
 using myshop.Domain.Models;
@@ -17,36 +18,48 @@ namespace myshop.DAL.Repositories
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAccountRepo _accountRepo;
-        public UserManagment(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,IAccountRepo accountRepo)
+        private readonly ILogger<UserManagment> _logger;
+        public UserManagment(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,IAccountRepo accountRepo,ILogger<UserManagment> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _accountRepo = accountRepo;
+            _logger = logger;
         }
 
         public async  Task<string> ChangeLockoutAccount(string Id, string CurrentUserId ,bool lockOrNot)
         {
-            string massage = null;
-            var user=await _userManager.FindByIdAsync(Id);
-            if (lockOrNot && user.LockoutEnabled==true)
+            try
             {
-                user.LockoutEnd = DateTimeOffset.UtcNow.AddDays(2);
-                await _userManager.UpdateAsync(user);
+                string massage = null;
+                var user = await _userManager.FindByIdAsync(Id);
+                if (lockOrNot && user.LockoutEnabled == true)
+                {
+                    user.LockoutEnd = DateTimeOffset.UtcNow.AddDays(2);
+                    await _userManager.UpdateAsync(user);
 
-                massage= "Account is Looked";
-            }
-            else {
-                user.LockoutEnd = null;
-                await _userManager.UpdateAsync(user);
-                massage= "Account is not  Looked";
+                    massage = "Account is Looked";
+                }
+                else
+                {
+                    user.LockoutEnd = null;
+                    await _userManager.UpdateAsync(user);
+                    massage = "Account is not  Looked";
 
 
+                }
+                if (Id == CurrentUserId)
+                {
+
+                    await _accountRepo.LogOut();
+                }
+                return massage;
             }
-            if (Id==CurrentUserId) { 
-              
-              await _accountRepo.LogOut();
+            catch (Exception ex) {
+                _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.Message.ToString());
+
             }
-            return massage;
             
         }
 
@@ -88,6 +101,7 @@ namespace myshop.DAL.Repositories
                 return null;
             }
             catch (Exception ex) {
+                _logger.LogError($"{ex.Message}");
                 throw new Exception(ex.ToString());
             
             
@@ -96,36 +110,46 @@ namespace myshop.DAL.Repositories
 
         public async Task<List<UserDtoDomain>> GetAllUsers()
         {
-            List<UserDtoDomain> allUsersAsaList = new List<UserDtoDomain>();
-            var allUsers =await _userManager.Users.ToListAsync();
-            
-            foreach (var user in allUsers) {
-               
-                var allRoles = await _userManager.GetRolesAsync(user);
-                string roleAsAstring = allRoles.FirstOrDefault() ?? "No Role";
+            try
+            {
+                List<UserDtoDomain> allUsersAsaList = new List<UserDtoDomain>();
+                var allUsers = await _userManager.Users.ToListAsync();
 
-                allUsersAsaList.Add(new UserDtoDomain { 
-                   Id = user.Id,
-                    UserName=user.UserName,
-                    Email=user.Email,
-                    LockStatus=user.LockoutEnd==null|| user.LockoutEnd< DateTime.UtcNow,
-                    CurrentRole=roleAsAstring,
-                
-                });
-              
+                foreach (var user in allUsers)
+                {
 
-            
+                    var allRoles = await _userManager.GetRolesAsync(user);
+                    string roleAsAstring = allRoles.FirstOrDefault() ?? "No Role";
+
+                    allUsersAsaList.Add(new UserDtoDomain
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        LockStatus = user.LockoutEnd == null || user.LockoutEnd < DateTime.UtcNow,
+                        CurrentRole = roleAsAstring,
+
+                    });
+
+
+
+                }
+                return allUsersAsaList;
+
+
+
             }
-            return allUsersAsaList;
-         
-             
-              
-            
+            catch (Exception ex) {
+
+
+                _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.ToString());
+            }
           
         
             
             
-            throw new NotImplementedException();
+          
         }
 
        

@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using myshop.DAL.Data;
@@ -26,39 +27,52 @@ namespace myshop.DAL.Repositories
           
         }
 
-     
+
 
         public async Task<bool> CheckCategoryExistince(Category obj)
         {
-            if (obj.Id == 0)
+            try
             {
-                var NormalizedName = obj.Name.ToUpper().Trim();
-                var checkCategory = _context.Categories.Any(x => x.Name.ToUpper().Trim().Contains(NormalizedName));
-                if (checkCategory) {
-                    return false;
-                 
-                
+
+                if (obj.Id == 0)
+                {
+                    var NormalizedName = obj.Name.ToUpper().Trim();
+                    var checkCategory = _context.Categories.Any(x => x.Name.ToUpper().Trim().Contains(NormalizedName));
+                    if (checkCategory)
+                    {
+                        return false;
+
+
+                    }
+
                 }
-               
-            }
-            else if(obj.Id>0)
-            {
-                var NormalizedName = obj.Name.ToUpper().Trim();
-                var checkCategory = _context.Categories.Any(x => x.Id!=obj.Id&&x.Name.ToUpper().Trim().Contains(NormalizedName));
-                if (checkCategory) {
-                    return false;
-                
+                else if (obj.Id > 0)
+                {
+                    var NormalizedName = obj.Name.ToUpper().Trim();
+                    var checkCategory = _context.Categories.Any(x => x.Id != obj.Id && x.Name.ToUpper().Trim().Contains(NormalizedName));
+                    if (checkCategory)
+                    {
+                        return false;
+
+                    }
+
+
+
+
                 }
-               
+                return true;
+            }
+            catch (Exception ex) {
+
+                _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.Message.ToString());
+            
+            }
 
 
 
             }
-            return true;
-               
-           
-           
-        }
+            
 
      
     }

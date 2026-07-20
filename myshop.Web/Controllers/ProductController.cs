@@ -8,7 +8,9 @@ using myshop.BLL.Dto;
 using myshop.BLL.Services;
 using myshop.DAL.Data;
 using myshop.Domain.Models;
+using myshop.Web.ApplicationServices.Interfaces;
 using myshop.Web.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace myshop.Web.Areas.Admin.Controllers
@@ -18,18 +20,20 @@ namespace myshop.Web.Areas.Admin.Controllers
     {
         //private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IFileService _fileService;
         private readonly CategoryServices _categoryServices;
         private readonly ProductServices _productServices;
         private readonly IMapper _mapper;
         public static List<ProductVM>? allProducts;
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, CategoryServices catSer, IMapper mapper, ProductServices productservice)
+        public ProductController(IWebHostEnvironment webHostEnvironment, CategoryServices catSer, IMapper mapper, ProductServices productservice,IFileService fileService)
         {
             _mapper = mapper;
 
             _webHostEnvironment = webHostEnvironment;
             _categoryServices = catSer;
             _productServices = productservice;
+            _fileService = fileService;
         }
 
         public async Task<IActionResult> Index()
@@ -107,15 +111,10 @@ namespace myshop.Web.Areas.Admin.Controllers
                     string RootPath = _webHostEnvironment.WebRootPath;
                     if (file != null)
                     {
-                        string filename = Guid.NewGuid().ToString();
-                        var Upload = Path.Combine(RootPath, @"Images\Products");
-                        var ext = Path.GetExtension(file.FileName);
-
-                        using (var filestream = new FileStream(Path.Combine(Upload, filename + ext), FileMode.Create))
-                        {
-                            file.CopyTo(filestream);
-                        }
-                        productVM.Img = @"Images\Products\" + filename + ext;
+                     
+                      
+                        var imgPath = await _fileService.UploadImgAsync(file);
+                        productVM.Img = imgPath;
                     }
                     
 
@@ -214,6 +213,9 @@ namespace myshop.Web.Areas.Admin.Controllers
                     }
 
                     productVM.Img = @"Images\Products\" + filename + ext;
+                }
+                if (productVM.Img == null) {
+                    productVM.Img = @"Images\Products\defaultProductsImage.webp";
                 }
 
                 var isUpdated = await _productServices.EditProduct(_mapper.Map<ProductDto>(productVM));

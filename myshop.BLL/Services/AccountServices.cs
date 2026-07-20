@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using myshop.BLL.Dto;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Models;
@@ -15,13 +16,15 @@ namespace myshop.BLL.Services
     {
         private readonly IMapper _mapper;
         private readonly IAccountRepo _accountRepo;
+        private readonly ILogger<AccountServices> _logger;
        
       
-        public AccountServices(IMapper mapper, IAccountRepo accountRepo,SignInManager<ApplicationUser> signInManager)
+        public AccountServices(IMapper mapper, IAccountRepo accountRepo,SignInManager<ApplicationUser> signInManager,ILogger<AccountServices> logger)
         {
 
             _mapper = mapper;
             _accountRepo = accountRepo;
+            _logger = logger;
          
         }
 
@@ -32,7 +35,8 @@ namespace myshop.BLL.Services
                 var result = await _accountRepo.RegisterAsync(UserAsEntity, obj.Password);
                 return result;
             }
-            catch (Exception ex) { 
+            catch (Exception ex) {
+                _logger.LogError(ex.Message.ToString());
                
                 throw new Exception($"An error occurred while signing up: {ex.Message}", ex);
 
@@ -43,28 +47,44 @@ namespace myshop.BLL.Services
         
         }
 
-        public async Task<string> Login(string email,string password,bool remeberMe) { 
-            var result= await _accountRepo.Login(email, password,remeberMe);
-            return result;
+        public async Task<string> Login(string email,string password,bool remeberMe)
+        {
+            try
+            {
+                var result = await _accountRepo.Login(email, password, remeberMe);
+                return result;
+            }
+            catch (Exception ex) { 
+             _logger.LogError($"Failed to login {email}", ex);
+                throw new Exception(ex.Message.ToString());
+            
+            }
 
 
 
         }
 
 
-        public async Task<bool> LogOut() { 
-
-
-            var isSignedOut = await _accountRepo.LogOut();
-            if (isSignedOut)
+        public async Task<bool> LogOut()
+        {
+            try
             {
+                var isSignedOut = await _accountRepo.LogOut();
+                if (isSignedOut)
+                {
 
 
-                return true;
+                    return true;
+                }
+
+
+                return false;
             }
-
-
-            return false;
+            catch (Exception ex) { 
+              _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.Message);
+            
+            }
 
         }
 

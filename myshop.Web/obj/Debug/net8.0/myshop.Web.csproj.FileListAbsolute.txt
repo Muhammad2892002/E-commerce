@@ -1146,3 +1146,4 @@ D:\Abu-damn-Training\myshop.Web\bin\Debug\net8.0\Microsoft.Extensions.WebEncoder
 D:\Abu-damn-Training\myshop.Web\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\Abu-damn-Training\myshop.Web\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
 D:\Abu-damn-Training\myshop.Web\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Abu-damn-Training\myshop.Web\obj\Debug\net8.0\myshop.Web.MvcApplicationPartsAssemblyInfo.cs

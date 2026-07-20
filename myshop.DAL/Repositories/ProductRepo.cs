@@ -28,8 +28,17 @@ namespace myshop.DAL.Repositories
 
         public override async Task<IEnumerable<Product>> GetAll()
         {
-            var allProducts = await _context.Products.Include(p => p.Category).ToListAsync();
-            return allProducts;
+            try
+            {
+                var allProducts = await _context.Products.Include(p => p.Category).ToListAsync();
+                return allProducts;
+            }
+            catch (Exception ex) {
+
+                _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.Message.ToString());
+            
+            }
 
         }
 
@@ -60,10 +69,12 @@ namespace myshop.DAL.Repositories
 
                
             }
-            catch {
+            catch(Exception ex) {
+                _logger.LogError(ex.Message.ToString());
+                throw new Exception(ex.Message);
 
 
-                return false;
+                
             }
         
         
