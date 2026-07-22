@@ -1,7 +1,0 @@
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\0974fdfe-7e77-4bc3-9573-6baab21d56a0.webp
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\3951d855-23d7-4432-be8d-457ddd314f18.png
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\60c43060-c1ea-4601-8ad0-692d601299ac.jpeg
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\66b42afc-ff8d-44c8-a7a7-7a91a5786aa3.jpeg
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\95d75047-039e-4609-b244-e7bc5b007a21.webp
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\cd36d47c-eeb5-41fa-86be-a32f668bd772.png
-D:\Abu-damn-Training\myshop.Web\wwwroot\Images\Products\fc4f67e0-88c5-453c-87ef-e1ed18ab25c9.webp

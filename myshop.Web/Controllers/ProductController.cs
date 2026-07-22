@@ -84,6 +84,8 @@ namespace myshop.Web.Areas.Admin.Controllers
         {
             try
             {
+                TempData["ImgValidtionErrFlag"] = false ;
+                TempData["ImgValidationMsg"] = "";
                 TempData["IsFailedToAdd"] = false;
                 var allCats = (from cats in await _categoryServices.GetAllcategories()
                                select new CategoryVM()
@@ -108,18 +110,22 @@ namespace myshop.Web.Areas.Admin.Controllers
         {
             try
             {
+                TempData["ImgValidtionErrFlag"] = false;
+                TempData["ImgValidationMsg"] = "";
                 //file = (IFormFile)productVM.Img;
                 if (ModelState.IsValid)
                 {
                     var ImgValidationResult = _fileService.ValidateImg(file);
                     if (ImgValidationResult != "") {
+                        TempData["ImgValidtionErrFlag"] = true;
+                        TempData["ImgValidationMsg"] = ImgValidationResult;
                      
                         ViewBag.AllCats = await   getAllCats();
                         TempData["IsFailedToAdd"] = false;
 
                         return View(productVM);
                     }
-                    string RootPath = _webHostEnvironment.WebRootPath;
+                  
                    
                     if (file != null)
                     {
@@ -158,6 +164,8 @@ namespace myshop.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
+            TempData["ImgValidtionErrFlag"] = false;
+            TempData["ImgValidationMsg"] = "";
             TempData["IsFailedToAdd"] = false;
             if (id == null || id == 0)
             {
@@ -186,9 +194,23 @@ namespace myshop.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ProductVM productVM, IFormFile? file)
         {
+            TempData["ImgValidtionErrFlag"] = false;
+            TempData["ImgValidationMsg"] = "";
             if (ModelState.IsValid)
             {
-                string RootPath = _webHostEnvironment.WebRootPath;
+                var ImgValidationResult = _fileService.ValidateImg(file);
+                if (ImgValidationResult != "")
+                {
+                    TempData["ImgValidtionErrFlag"] = true;
+                    TempData["ImgValidationMsg"] = ImgValidationResult;
+
+                    ViewBag.AllCats = await getAllCats();
+                    TempData["IsFailedToAdd"] = false;
+
+                    return View(productVM);
+                }
+
+                
 
                 if (file != null)
                 {
@@ -208,6 +230,8 @@ namespace myshop.Web.Areas.Admin.Controllers
 
                 var isUpdated = await _productServices.EditProduct(_mapper.Map<ProductDto>(productVM));
                 if (!isUpdated) {
+                    TempData["ImgValidtionErrFlag"] = false;
+                    TempData["ImgValidationMsg"] = "";
                     TempData["IsFailedToAdd"] = true;
                     var allCats =await getAllCats();
                     ViewBag.AllCats = allCats;
@@ -219,6 +243,10 @@ namespace myshop.Web.Areas.Admin.Controllers
                 TempData["Update"] = "Data has Updated Successfully";
                 return RedirectToAction("Index");
             }
+            var allCatsIfModelItsNotValid = await getAllCats();
+            ViewBag.AllCats = allCatsIfModelItsNotValid;
+            TempData["ImgValidtionErrFlag"] = false;
+            TempData["ImgValidationMsg"] = "";
 
             return View(productVM);
         }

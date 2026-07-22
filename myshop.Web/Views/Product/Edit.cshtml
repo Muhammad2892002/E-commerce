@@ -119,6 +119,23 @@
                         </div>
                     </div>
                 }
+                @if ((bool)TempData["ImgValidtionErrFlag"])
+                {
+
+                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                        <div class="d-flex align-items-center gap-2">
+
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                            <strong>@TempData["ImgValidationMsg"]</strong>
+                        </div>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close">
+                        </button>
+                    </div>
+
+                }
 
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label">
@@ -149,7 +166,7 @@
                     <label asp-for="Img" class="form-label">
                         <i class="fa-solid fa-image me-1"></i> Product Image
                     </label>
-                    <input asp-for="Img" type="file" name="file" id="imgfile" class="form-control" onchange="fillimg(event);" />
+                    <input accept=".jpg,.jpeg,.png,.webp" asp-for="Img" type="file" name="file" id="imgInput" class="form-control" onchange="fillimg(event);" />
                 </div>
 
                 <div class="mb-3">
@@ -189,39 +206,10 @@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    <script>
-        var fillimg = function(event){
-            var imgholder = document.getElementById("ImagePreview");
-            imgholder.src = URL.createObjectURL(event.target.files[0]);
-        }
+    <script src="~/js/products.js">
+ 
     </script>
 
-    <script>
-        let priceIN=document.getElementById("priceIn");
-        priceIN.addEventListener("blur",function(){
-           let val=parseFloat(priceIN.value);
-           console.log(val)
-           let msgSpan=document.getElementById("msg");
-           let btnSubmit=document.getElementById("btnSubmit");
-           if(val <0 || val>100000){
-               msgSpan.innerHTML="Price must be larger than zero and less than milion";
-               btnSubmit.disabled=true;
-
-               
-            
-            
-              
-           }
-           else{
-                msgSpan.innerHTML="";
-               btnSubmit.disabled=false;
-
-           
-           }
-
-           
-        });
-    </script>
 
 
 
