@@ -40,7 +40,7 @@ namespace myshop.DAL.Repositories
             }
         }
 
-        public async Task<string> DeleteAsync(int ? id)
+        public virtual async Task<string> DeleteAsync(int ? id)
         {
             try
             {

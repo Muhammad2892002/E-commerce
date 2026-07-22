@@ -147,7 +147,9 @@
                     <label asp-for="Img" class="form-label">
                         <i class="fa-solid fa-image me-1"></i> Product Image
                     </label>
-                    <input   type="file" name="file" id="imgfile"  class="form-control" onchange="fillimg(event);" />
+                    <input id="imgInput"  type="file" name="file" id="imgfile"  class="form-control" onchange="fillimg(event);"
+                    @*  accept=".jpg,.jpeg,.png,.webp" *@
+                    />
                 </div>
                     }
 
@@ -238,5 +240,41 @@
         
         });
     </script>
+@* 
+    <script>
+        document.addEventListener("DOMContentLoaded",function(){
+        console.log("testing issues");
+           debugger;
+            let btnSubmit = document.getElementById("btnSubmit");
+            var inputImg = document.getElementById("imgInput");
+            var imgPreview = document.getElementById("ImagePreview");
+            inputImg.addEventListener("change",function(){
+                console.log("bestTry to vaildate");
+              
+            
+                const maxSize = 2 * 1024 * 1024;
+
+                const file = inputImg.files[0];
+  console.log(file.size);
+                if(file.size>maxSize){
+                 
+                    alert("The img is bigger than 2MB");
+                    btnSubmit.disabled=true;
+                    inputImg.value="";
+                    imgPreview.src="";
+                
+                }
+                else{
+                    btnSubmit.disabled = false;
+                
+                }
+               
+            
+            
+            });
+         
+        
+        });
+    </script> *@
 }
-<script>
+

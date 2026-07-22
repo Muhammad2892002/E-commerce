@@ -81,5 +81,32 @@ namespace myshop.DAL.Repositories
         
         
         }
+
+        public override async Task<string?> DeleteAsync(int? id)
+        {
+            try
+            {
+                var product = await GetById(id);
+                if (product != null)
+                {
+                    _context.Remove(product);
+
+                    return product.Img;
+
+                }
+
+                return null;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception(ex.ToString());
+
+
+            }
+        }
     }
 }

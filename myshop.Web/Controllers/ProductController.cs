@@ -8,8 +8,9 @@ using myshop.BLL.Dto;
 using myshop.BLL.Services;
 using myshop.DAL.Data;
 using myshop.Domain.Models;
-using myshop.Web.ApplicationServices.Interfaces;
+using myshop.BLL.ApplicationServices.Interfaces;
 using myshop.Web.ViewModels;
+using X.PagedList;
 using static System.Net.Mime.MediaTypeNames;
 
 
@@ -21,6 +22,7 @@ namespace myshop.Web.Areas.Admin.Controllers
         //private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFileService _fileService;
+        private readonly  string _rootPath = "";
         private readonly CategoryServices _categoryServices;
         private readonly ProductServices _productServices;
         private readonly IMapper _mapper;
@@ -34,6 +36,7 @@ namespace myshop.Web.Areas.Admin.Controllers
             _categoryServices = catSer;
             _productServices = productservice;
             _fileService = fileService;
+            _rootPath = _webHostEnvironment.WebRootPath;
         }
 
         public async Task<IActionResult> Index()
@@ -108,12 +111,21 @@ namespace myshop.Web.Areas.Admin.Controllers
                 //file = (IFormFile)productVM.Img;
                 if (ModelState.IsValid)
                 {
+                    var ImgValidationResult = _fileService.ValidateImg(file);
+                    if (ImgValidationResult != "") {
+                     
+                        ViewBag.AllCats = await   getAllCats();
+                        TempData["IsFailedToAdd"] = false;
+
+                        return View(productVM);
+                    }
                     string RootPath = _webHostEnvironment.WebRootPath;
+                   
                     if (file != null)
                     {
                      
                       
-                        var imgPath = await _fileService.UploadImgAsync(file);
+                        var imgPath = await _fileService.UploadImgAsync(file, _rootPath);
                         productVM.Img = imgPath;
                     }
                     
@@ -127,14 +139,8 @@ namespace myshop.Web.Areas.Admin.Controllers
                         return RedirectToAction("Index");
                     }
                     TempData["IsFailedToAdd"] = true;
-                    var allCats = (from cats in await _categoryServices.GetAllcategories()
-                                   select new CategoryVM()
-                                   {
-                                       Id = cats.Id,
-                                       Name = cats.Name,
 
-
-                                   }).ToList();
+                    var allCats = await getAllCats();
                     ViewBag.AllCats = allCats;
                 }
                 TempData["IsFailedToAdd"] = true;
@@ -157,14 +163,7 @@ namespace myshop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var allCats = (from cats in await _categoryServices.GetAllcategories()
-                           select new CategoryVM()
-                           {
-                               Id = cats.Id,
-                               Name = cats.Name,
-
-
-                           }).ToList();
+            var allCats = await getAllCats();
             ViewBag.AllCats = allCats;
             var productAsDto = await _productServices.GetProductById(id);
             var ProductAsVm = _mapper.Map<ProductVM>(productAsDto);
@@ -193,42 +192,24 @@ namespace myshop.Web.Areas.Admin.Controllers
 
                 if (file != null)
                 {
-                    string filename = Guid.NewGuid().ToString();
-                    var Upload = Path.Combine(RootPath, @"Images\Products");
-                    var ext = Path.GetExtension(file.FileName);
+               
 
                     if (productVM.Img != null)
                     {
-                        var oldimg = Path.Combine(RootPath, productVM.Img.TrimStart('\\'));
-
-                        if (System.IO.File.Exists(oldimg))
-                        {
-                            System.IO.File.Delete(oldimg);
-                        }
+                        var result = _fileService.DeleteImg(productVM.Img, _rootPath);
                     }
 
-                    using (var filestream = new FileStream(Path.Combine(Upload, filename + ext), FileMode.Create))
-                    {
-                        file.CopyTo(filestream);
-                    }
-
-                    productVM.Img = @"Images\Products\" + filename + ext;
+                    var UploadImgResult =await  _fileService.UploadImgAsync(file, _rootPath);
+                    productVM.Img = UploadImgResult??@"Images\Products\defaultProductsImage.webp";
                 }
-                if (productVM.Img == null) {
+                if (productVM.Img == null && file==null) {
                     productVM.Img = @"Images\Products\defaultProductsImage.webp";
                 }
 
                 var isUpdated = await _productServices.EditProduct(_mapper.Map<ProductDto>(productVM));
                 if (!isUpdated) {
                     TempData["IsFailedToAdd"] = true;
-                    var allCats = (from cats in await _categoryServices.GetAllcategories()
-                                   select new CategoryVM()
-                                   {
-                                       Id = cats.Id,
-                                       Name = cats.Name,
-
-
-                                   }).ToList();
+                    var allCats =await getAllCats();
                     ViewBag.AllCats = allCats;
 
                     return View(productVM);
@@ -245,11 +226,30 @@ namespace myshop.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int? Id)
         {
-            var IsDeleted =await _productServices.DeleteProduct(Id);
+            var IsDeleted =await _productServices.DeleteProduct(Id,_rootPath);
 
 
             return RedirectToAction("Index");
         }
+
+        private  async Task<List<CategoryVM>> getAllCats()
+        {
+
+            var allCats = (from cats in await _categoryServices.GetAllcategories()
+                           select new CategoryVM()
+                           {
+                               Id = cats.Id,
+                               Name = cats.Name,
+
+
+                           }).ToList();
+            return allCats;
+
+
+
+        }
+
+
 
 
     }

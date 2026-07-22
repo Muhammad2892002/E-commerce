@@ -13,8 +13,8 @@ using myshop.DAL.Repositories;
 using myshop.BLL.Services;
 using myshop.Web.IdentitySeeds;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
-using myshop.Web.ApplicationServices.Interfaces;
-using myshop.Web.ApplicationServices.Services;
+using myshop.BLL.ApplicationServices.Interfaces;
+using myshop.BLL.ApplicationServices.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using myshop.BLL.ApplicationServices.Interfaces;
 using myshop.BLL.Dto;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Models;
@@ -15,10 +16,12 @@ namespace myshop.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public ProductServices(IUnitOfWork unitOfWork,IMapper mapper)
+        private IFileService _fileService;
+        public ProductServices(IUnitOfWork unitOfWork,IMapper mapper,IFileService fileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         public async Task<bool> AddNewProduct(ProductDto obj)
@@ -125,12 +128,13 @@ namespace myshop.BLL.Services
 
         }
 
-        public async Task<bool> DeleteProduct(int? id) {
+        public async Task<bool> DeleteProduct(int? id,string rootPath) {
             try
             {
-                var isDeleted = await _unitOfWork.Product.DeleteAsync(id);
-                if (isDeleted != null)
+                var DeleteResult = await _unitOfWork.Product.DeleteAsync(id);
+                if (DeleteResult != null)
                 {
+                    _fileService.DeleteImg(DeleteResult,rootPath);
                     await _unitOfWork.SaveChangesAsync();
                     return true;
 

@@ -5,6 +5,7 @@ wwwroot\Images\Products\0353475b-b8aa-4d4a-a9bd-63ff8de86261.jpeg
 wwwroot\Images\Products\035afc1e-b77f-4b5b-9eb7-7d7991bea349.jpg
 wwwroot\Images\Products\05448844-6c20-4ab0-84c7-a4fb5b3ce129.jpg
 wwwroot\Images\Products\08f1b958-f9a8-4186-8bb1-e40e76f47f38.jpg
+wwwroot\Images\Products\0974fdfe-7e77-4bc3-9573-6baab21d56a0.webp
 wwwroot\Images\Products\0bb7f14e-7743-4e65-bae4-e9d1bb2892d5.jpeg
 wwwroot\Images\Products\1016bc6c-9869-4d20-89da-2e3d96cfe924.jpg
 wwwroot\Images\Products\1198e589-c4ff-45a6-81da-6bb51a1a23be.jpg
@@ -20,6 +21,7 @@ wwwroot\Images\Products\248aaba6-43c9-442d-82f9-b4e0a1b89aa6.jpg
 wwwroot\Images\Products\27839752-90d0-4222-8873-4117b18ffb7e.jpeg
 wwwroot\Images\Products\27880df2-a1e9-44bf-8849-225216257ba8.jpg
 wwwroot\Images\Products\28e468b9-b2aa-46e1-8077-519050c64e8a.jpeg
+wwwroot\Images\Products\2a04044b-d988-4f6d-9b62-f2bbfdf0b4aa.webp
 wwwroot\Images\Products\2cde680d-9039-4203-a3ac-16d407dd02a6.jpg
 wwwroot\Images\Products\2e0d9dc4-2a85-4225-bce7-a96944ec04a1.webp
 wwwroot\Images\Products\2ebf91b9-5d48-4cc6-a0b9-97f7cfc9d405.jpeg
@@ -27,6 +29,7 @@ wwwroot\Images\Products\2efe8c37-d6d1-4395-9c1c-e5400c9d0853.jpg
 wwwroot\Images\Products\306dcdcc-fe6f-4abb-8359-83cb039eb8f2.jpg
 wwwroot\Images\Products\30fe95c6-4709-4c70-a7a3-e608144440b5.jpg
 wwwroot\Images\Products\3932e951-ac22-4f83-a2e2-f72d68e6fd67.jpeg
+wwwroot\Images\Products\3951d855-23d7-4432-be8d-457ddd314f18.png
 wwwroot\Images\Products\395593ee-3142-4f68-8635-f5eca7eb29e9.png
 wwwroot\Images\Products\3a98b09a-2883-418b-816d-f7e0ad46862e.jpg
 wwwroot\Images\Products\3ab06290-2a1d-4abd-983b-66141b925fdc.jpg
@@ -62,7 +65,6 @@ wwwroot\Images\Products\6853a631-ed61-4971-8c22-1019d654e6bb.jpeg
 wwwroot\Images\Products\69d5d345-8d42-43e3-aa27-0f3130ec11c9.jpeg
 wwwroot\Images\Products\6c25a51a-3df2-4e0d-a7ed-5aa8a725a80b.jpeg
 wwwroot\Images\Products\6c537063-1757-4cfb-a662-0644adf703cf.jpeg
-wwwroot\Images\Products\6e4c5612-20bc-4737-a10b-4ffff73195ef.webp
 wwwroot\Images\Products\6e4d4b55-22b1-4358-834f-2cecc6123b3c.jpg
 wwwroot\Images\Products\6f147049-df7e-4877-ab8f-56d8966dac89.jpg
 wwwroot\Images\Products\6f7f28e3-8151-4c35-aa45-c05280ed4ce0.jpeg
@@ -97,6 +99,7 @@ wwwroot\Images\Products\92667d7f-19d2-4850-8635-b533c775834e.jpeg
 wwwroot\Images\Products\927524ce-cf58-4eea-9e36-d29b9edc539a.jpg
 wwwroot\Images\Products\94653bc4-435a-4d0c-88a6-1e8e11a16953.jpg
 wwwroot\Images\Products\94ce7506-5034-4417-a9f2-4697c06ea99a.jpg
+wwwroot\Images\Products\95d75047-039e-4609-b244-e7bc5b007a21.webp
 wwwroot\Images\Products\96b3a2df-fc70-4430-9ff3-38a46fc4bc11.jpg
 wwwroot\Images\Products\9a0aa906-4203-4925-ab07-9d72a58e654e.png
 wwwroot\Images\Products\9a97b6b2-b0f0-4310-ba8b-26a168f48de2.jpg
@@ -121,11 +124,11 @@ wwwroot\Images\Products\c5e3d71b-edf9-4942-959b-565c19a394e9.png
 wwwroot\Images\Products\c8e852f7-f8c1-4527-b31f-b56bc3e847c1.jpeg
 wwwroot\Images\Products\ca4a5e32-4d43-4428-932e-9151433c5703.jpeg
 wwwroot\Images\Products\cc5daf8c-d71b-4a7b-b212-f923aa0274a9.jpg
+wwwroot\Images\Products\cd36d47c-eeb5-41fa-86be-a32f668bd772.png
 wwwroot\Images\Products\d042a783-5524-4135-b972-08054becf159.jpeg
 wwwroot\Images\Products\d42ad896-bd1e-4c9b-b849-dff221e694f6.jpg
 wwwroot\Images\Products\d45d6811-70fc-4329-92e3-378911329f50.jpg
 wwwroot\Images\Products\d5033c93-add3-40bc-85f5-020363626720.jpg
-wwwroot\Images\Products\d8bfb987-3c2e-4501-b7b0-aae80dee3ba9.webp
 wwwroot\Images\Products\defaultProductsImage.webp
 wwwroot\Images\Products\df35d386-7d3f-4c88-ba86-37f0109a7963.jpeg
 wwwroot\Images\Products\e173795f-7b9e-480f-9a1b-8b0e88d5d010.jpg
