@@ -74,7 +74,17 @@ namespace myshop.Web.Controllers
             var LogInResult=await accountService.Login(obj.UserName, obj.Password,obj.RememberMe);
             if (LogInResult== "LogedIn")
             {
-                return RedirectToAction("Index","Home");
+             
+              
+
+                if (User.IsInRole("Admin")) {
+
+                    return RedirectToAction("DashBoard", "Home");
+                }
+                if (User.IsInRole("Customer")) {
+                    return RedirectToAction("CustomerHome", "Home");
+
+                }
             }
             else {
                 TempData["FailedToLogFlag"] = true;
@@ -83,6 +93,7 @@ namespace myshop.Web.Controllers
                 return View(obj);
             
             }
+            return RedirectToAction("Error", "Home");
         }
 
 

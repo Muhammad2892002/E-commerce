@@ -149,6 +149,7 @@ wwwroot\Images\Products\f81ddad6-1777-44e3-bf67-a0f6a5e3854f.jpeg
 wwwroot\Images\Products\f8f76e83-7562-4af1-85fe-5d799059e252.jpeg
 wwwroot\Images\Products\f9b54edb-5996-4386-a18d-5198ad00c323.png
 wwwroot\Images\Products\fabbd875-68cc-4c76-8fd0-3930abcb3b68.jpg
+wwwroot\css\Dashboard.css
 wwwroot\css\adminlte.css
 wwwroot\css\adminlte.css.map
 wwwroot\css\adminlte.min.css
