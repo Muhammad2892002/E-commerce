@@ -1,0 +1,141 @@
+﻿@{
+
+    Layout = "_Customer";
+
+}
+<head>
+    <style>
+            .cart-page .card {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .cart-item {
+                border-bottom: 1px solid #eee;
+                transition: background-color 0.15s ease;
+            }
+
+                .cart-item:last-child {
+                    border-bottom: none;
+                }
+
+                .cart-item:hover {
+                    background-color: #fafafa;
+                }
+
+            .product-thumb {
+                object-fit: cover;
+                aspect-ratio: 1 / 1;
+                width: 100%;
+            }
+
+            .remove-btn {
+                font-size: 0.8rem;
+            }
+
+            .item-price {
+                font-size: 1.05rem;
+                color: #212529;
+            }
+
+            .qty-stepper .form-control {
+                max-width: 45px;
+                border-left: none;
+                border-right: none;
+            }
+
+            .sticky-checkout {
+                position: sticky;
+                top: 20px;
+            }
+
+            @@media (max-width: 767px) {
+                .sticky-checkout {
+                    position: static;
+                }
+            }
+    </style>
+</head>
+<body>
+    <div class="row cart-page">
+        <!-- Cart Items -->
+        <div class="col-md-8 all-product-in-cart">
+            <div class="card shadow-sm mb-3 border-0">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold">Shopping Cart</h5>
+                    <span class="badge bg-light text-dark border">4 items</span>
+                </div>
+                <div class="card-body p-0">
+
+                    <!-- Repeat this block per cart item -->
+                    <div class="row align-items-center cart-item mx-0 px-3 py-3">
+                        <div class="col-md-3 col-4">
+                            <img src="~/Images/Products/defaultProductsImage.webp"
+                                 class="img-fluid rounded product-thumb" alt="Product image" />
+                        </div>
+
+                        <div class="col-md-5 col-8">
+                            <h6 class="mb-1 fw-semibold">Product Name</h6>
+                            <p class="text-muted small mb-2">
+                                Description here, description here, description here
+                            </p>
+                            <button class="btn btn-link btn-sm text-danger p-0 remove-btn" type="button">
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="col-md-2 col-6 mt-3 mt-md-0">
+                            <div class="input-group input-group-sm qty-stepper">
+                                <button class="btn btn-outline-secondary" type="button">−</button>
+                                <input type="text" class="form-control text-center" value="1" />
+                                <button class="btn btn-outline-secondary" type="button">+</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-6 mt-3 mt-md-0 text-md-end text-start">
+                            <strong class="item-price">$0.00</strong>
+                        </div>
+                    </div>
+                    <!-- End repeat: duplicate ONLY the block above, not the whole card -->
+
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Continue Shopping
+            </a>
+        </div>
+
+        <!-- Checkout Summary -->
+        <div class="col-md-4 check-out">
+            <div class="card shadow-sm border-0 sticky-checkout">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2 text-secondary">
+                        <span>Subtotal</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 text-secondary">
+                        <span>Shipping</span>
+                        <span>$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 text-secondary">
+                        <span>Tax</span>
+                        <span>$0.00</span>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mb-3">
+                        <strong>Total</strong>
+                        <strong class="text-primary fs-5">$0.00</strong>
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-2" type="submit">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

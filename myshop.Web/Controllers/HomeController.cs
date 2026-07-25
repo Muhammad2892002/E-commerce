@@ -25,9 +25,19 @@ namespace myshop.Web.Controllers
             _mapper = mapper;
             
         }
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "CustomerAndAdmin")]
         public IActionResult Index()
         {
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("DashBoard");
+            }
+
+            else if (User.IsInRole("Customer")) { 
+                return RedirectToAction("CustomerHome","Customer");
+            
+            
+            }
             return View();
         }
 
@@ -50,13 +60,6 @@ namespace myshop.Web.Controllers
         }
 
 
-        [Authorize(Policy = "Customer")]
-        public async Task<IActionResult> CustomerHome() {
-            var allProductsDto = await _productService.GetAllProducts();
-           var allProducts = _mapper.Map<List<ProductVM>>(allProductsDto);
-
-            return View(allProducts);
-        
-        }
+   
     }
 }

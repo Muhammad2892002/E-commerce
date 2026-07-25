@@ -82,7 +82,7 @@ namespace myshop.Web.Controllers
                     return RedirectToAction("DashBoard", "Home");
                 }
                 if (User.IsInRole("Customer")) {
-                    return RedirectToAction("CustomerHome", "Home");
+                    return RedirectToAction("CustomerHome", "Customer");
 
                 }
             }
