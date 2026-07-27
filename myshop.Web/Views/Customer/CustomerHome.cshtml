@@ -31,9 +31,13 @@
                             <span class="fw-bold fs-5 text-success">@product.Price</span>
                             <span class="badge bg-light text-dark border">In Stock</span>
                         </div>
-                        <button class="btn btn-outline-success w-100">
-                            <i class="bi bi-cart2 me-2"></i>Add to Cart
-                        </button>
+                        <form method="post" asp-action="AddCart" asp-controller="Cart">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <button type="submit" class="btn btn-outline-success w-100">
+                                <i class="bi bi-cart2 me-2"></i>Add to Cart
+                            </button>
+                        </form>
+                      
                     </div>
                 </div>
             </div>

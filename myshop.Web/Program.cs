@@ -15,6 +15,7 @@ using myshop.Web.IdentitySeeds;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using myshop.BLL.ApplicationServices.Interfaces;
 using myshop.BLL.ApplicationServices.Services;
+using myshop.BLL.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,7 @@ builder.Services.AddScoped<ApplicationDbContext>();
 builder.Services.AddScoped<CategoryServices>();
 builder.Services.AddScoped<ProductServices>();
 builder.Services.AddScoped<AccountServices>();
+builder.Services.AddScoped<ICartService,CartService>();
 builder.Services.AddScoped<UserManagmentServices>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IAccountRepo, AccounttRepo>();
@@ -74,7 +76,13 @@ builder.Services.AddAuthorization(options =>
 
 
     builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+builder.Services.AddSession(options => { 
+  options.IdleTimeout = TimeSpan.FromMinutes(25);
+  options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+
+
+});
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {

@@ -1,4 +1,7 @@
-﻿@{
+﻿
+
+@model List<Cart>
+@{
 
     Layout = "_Customer";
 
@@ -63,40 +66,44 @@
             <div class="card shadow-sm mb-3 border-0">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
                     <h5 class="mb-0 fw-bold">Shopping Cart</h5>
-                    <span class="badge bg-light text-dark border">4 items</span>
+                    <span class="badge bg-light text-dark border">@Model.Count</span>
                 </div>
                 <div class="card-body p-0">
 
                     <!-- Repeat this block per cart item -->
-                    <div class="row align-items-center cart-item mx-0 px-3 py-3">
-                        <div class="col-md-3 col-4">
-                            <img src="~/Images/Products/defaultProductsImage.webp"
-                                 class="img-fluid rounded product-thumb" alt="Product image" />
-                        </div>
+                    @foreach (var product in Model)
+                        {
+                            <div class="row align-items-center cart-item mx-0 px-3 py-3">
+                                <div class="col-md-3 col-4">
+                                    <img src="~/@product.ImageUrl"
+                                    class="img-fluid rounded product-thumb" alt="Product image" />
+                                </div>
 
-                        <div class="col-md-5 col-8">
-                            <h6 class="mb-1 fw-semibold">Product Name</h6>
-                            <p class="text-muted small mb-2">
-                                Description here, description here, description here
-                            </p>
-                            <button class="btn btn-link btn-sm text-danger p-0 remove-btn" type="button">
-                                <i class="bi bi-trash"></i> Remove
-                            </button>
-                        </div>
+                                <div class="col-md-5 col-8">
+                                    <h6 class="mb-1 fw-semibold">@product.ProductName</h6>
+                                    <p class="text-muted small mb-2">
+                                        @product.Description
+                                    </p>
+                                    <button class="btn btn-link btn-sm text-danger p-0 remove-btn" type="button">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </div>
 
-                        <div class="col-md-2 col-6 mt-3 mt-md-0">
-                            <div class="input-group input-group-sm qty-stepper">
-                                <button class="btn btn-outline-secondary" type="button">−</button>
-                                <input type="text" class="form-control text-center" value="1" />
-                                <button class="btn btn-outline-secondary" type="button">+</button>
+                                <div class="col-md-2 col-6 mt-3 mt-md-0">
+                                    <div class="input-group input-group-sm qty-stepper">
+                                        <button class="btn btn-outline-secondary" type="button">−</button>
+                                        <input type="text" class="form-control text-center" value="1" />
+                                        <button class="btn btn-outline-secondary" type="button">+</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-6 mt-3 mt-md-0 text-md-end text-start">
+                                    <strong class="item-price">@product.Price</strong>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-2 col-6 mt-3 mt-md-0 text-md-end text-start">
-                            <strong class="item-price">$0.00</strong>
-                        </div>
-                    </div>
-                    <!-- End repeat: duplicate ONLY the block above, not the whole card -->
+                        }
+                        <!-- End repeat: duplicate ONLY the block above, not the whole card -->
 
                 </div>
             </div>

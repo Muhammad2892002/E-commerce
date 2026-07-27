@@ -23,6 +23,7 @@ namespace myshop.Web.Controllers
         [Authorize(Policy = "Customer")]
         public async Task<IActionResult> CustomerHome()
         {
+            TempData["countOfProducts"] = HttpContext.Session.Keys.Count();
 
             var allProductsDto = await _productService.GetAllProducts();
             var allProducts = _mapper.Map<List<ProductVM>>(allProductsDto);
