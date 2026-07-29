@@ -4,6 +4,18 @@
 @{
 
     Layout = "_Customer";
+    decimal productPrice = 0;
+    decimal subTotal = 0;
+    decimal shipping=0;
+    decimal tax=0;
+    if (Model.Count >0)
+    {
+
+        shipping = 2;
+        tax = 2;
+    }
+    decimal total = 0;
+
 
 }
 <head>
@@ -61,6 +73,9 @@
 </head>
 <body>
     <div class="row cart-page">
+        <div>
+            <a asp-action="ClearCart" class="btn btn-outline-danger">Clear all Products</a>
+        </div>
         <!-- Cart Items -->
         <div class="col-md-8 all-product-in-cart">
             <div class="card shadow-sm mb-3 border-0">
@@ -84,16 +99,17 @@
                                     <p class="text-muted small mb-2">
                                         @product.Description
                                     </p>
-                                    <button class="btn btn-link btn-sm text-danger p-0 remove-btn" type="button">
+                                    <a class="btn btn-link btn-sm text-danger p-0 remove-btn" type="button" asp-route-Id="@product.ProductId"
+                                   asp-action="RemoveItem">
                                         <i class="bi bi-trash"></i> Remove
-                                    </button>
+                                    </a>
                                 </div>
 
                                 <div class="col-md-2 col-6 mt-3 mt-md-0">
                                     <div class="input-group input-group-sm qty-stepper">
-                                        <button class="btn btn-outline-secondary" type="button">−</button>
-                                        <input type="text" class="form-control text-center" value="1" />
-                                        <button class="btn btn-outline-secondary" type="button">+</button>
+                                    <button class="btn btn-outline-secondary decrease-btn decreaseQuantity" data-ProductId="@product.ProductId" type="button">−</button>
+                                        <input disabled id="@product.ProductId"  type="text" class="form-control text-center" value="@product.Quantity"  />
+                                    <button data-ProductId="@product.ProductId"  class="btn btn-outline-secondary IncreaseQuantity" type="button">+</button>
                                     </div>
                                 </div>
 
@@ -101,6 +117,15 @@
                                     <strong class="item-price">@product.Price</strong>
                                 </div>
                             </div>
+                            
+                                productPrice = product.Quantity * product.Price;
+                                subTotal += productPrice;
+
+                                
+                            
+                            
+                            
+
 
                         }
                         <!-- End repeat: duplicate ONLY the block above, not the whole card -->
@@ -122,20 +147,31 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-2 text-secondary">
                         <span>Subtotal</span>
-                        <span>$0.00</span>
+                        <span>@subTotal</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2 text-secondary">
                         <span>Shipping</span>
-                        <span>$0.00</span>
+                        <span>@shipping</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 text-secondary">
                         <span>Tax</span>
-                        <span>$0.00</span>
+                        <span>@tax</span>
                     </div>
                     <hr />
-                    <div class="d-flex justify-content-between mb-3">
+                        @{
+                            total = subTotal + shipping + tax;
+
+                        }
+                        @if (Model.Count() == 0)
+                        {
+                            total = 0;
+                            shipping = 0;
+                            tax = 0;
+
+                        }
+                        <div class="d-flex justify-content-between mb-3">
                         <strong>Total</strong>
-                        <strong class="text-primary fs-5">$0.00</strong>
+                        <strong class="text-primary fs-5">@total</strong>
                     </div>
 
                     <button class="btn btn-primary w-100 py-2" type="submit">
@@ -146,3 +182,135 @@
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        
+        var increamentBtn = document.querySelectorAll(".IncreaseQuantity");
+        var DecrementBtn = document.querySelectorAll(".decreaseQuantity");
+        // var showIndex = document.getElementById("IndexDisplay");
+        increamentBtn.forEach(function(btn) {
+
+            btn.addEventListener("click", function(e) {
+                console.log(`this is Id${e.target.dataset.productid}`);
+                incrementIndex(e.target.dataset.productid);
+            });   
+
+        });       
+
+        DecrementBtn.forEach(function(btn) {
+
+            btn.addEventListener("click", function(e) {
+                console.log(`this is Id${e.target.dataset.productid}`);
+                DecrementIndex(e.target.dataset.productid);
+            });
+
+        });
+       
+       
+     
+ 
+       
+
+        function incrementIndex(index){
+            var showIndex = document.getElementById(`${index}`);
+ console.log(showIndex.value);
+          
+            if(showIndex.value<10){
+           increamentBtn.disabled = false;
+                DecrementBtn.disabled = false;
+            showIndex.value++;
+                increaseQuantity(showIndex.value,index);
+            }
+            else{
+            increamentBtn.disabled=true
+            DecrementBtn.disabled=false;
+            }
+           
+            
+        
+        
+        
+        }
+
+
+        function DecrementIndex(Index) {
+            var showIndex = document.getElementById(`${Index}`);
+            console.log(showIndex.value);
+if(showIndex.value<=1){
+             
+            DecrementBtn.disabled=true;
+            }
+
+            if(showIndex.value<=10 && showIndex.value>1){
+             increamentBtn.disabled=false;
+             DecrementBtn.disabled=false;
+             showIndex.value--;
+                DecreaseQuantity(showIndex.value,Index);
+            }
+            
+           
+           
+
+            
+        
+        
+        }
+
+        function increaseQuantity(Quantity,ProductId){
+         
+            fetch(`/Cart/IncreaseQuantity`,{
+             
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+              body: JSON.stringify({
+                    productId:ProductId,
+                    quantity:Quantity
+              
+              
+              })
+               
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+
+            
+                }
+
+            
+            }).catch(err => console.log(err));
+        
+        }
+
+
+        function DecreaseQuantity(Quantity, ProductId) {
+
+            fetch(`/Cart/DecreaseQuantity`, {
+
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    productId: ProductId,
+                    quantity: Quantity
+
+              
+                })
+
+               
+            }).then(response=>{
+            if(response.ok){
+             location.reload();
+            
+            
+            }
+            
+            
+            }).catch(err=>console.log(err));
+
+        }
+
+        
+
+    
+    
+    });
+</script>

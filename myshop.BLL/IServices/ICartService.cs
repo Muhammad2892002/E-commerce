@@ -11,6 +11,14 @@ namespace myshop.BLL.IServices
     public interface ICartService
     {
         public Task AddProductToCartAsync(int id,ISession session);
-        public Task<List<Cart>> GetAllProductFromCart(ISession session);
+        public List<Cart> GetAllProductFromCart(ISession session);
+
+        public bool RemoveItem(int id,ISession session);
+
+        public bool removeAllProductsFromCart(ISession session);
+
+        public Task<bool> IncreasedProduct(int ProductId,int quantity,ISession session);
+
+        public Task<bool> DecreaseProduct(int productId, int quantity, ISession session);
     }
 }

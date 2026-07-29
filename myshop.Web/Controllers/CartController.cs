@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using myshop.BLL.IServices;
 using myshop.BLL.Services;
+using myshop.Web.ViewModels;
 using Stripe;
 
 namespace myshop.Web.Controllers
@@ -18,7 +19,7 @@ namespace myshop.Web.Controllers
         {
             TempData["countOfProducts"] = HttpContext.Session.Keys.Count();
 
-            var allProducts= await _cartService.GetAllProductFromCart( HttpContext.Session); 
+            var allProducts=  _cartService.GetAllProductFromCart( HttpContext.Session); 
                 return View(allProducts);
         }
         [HttpPost]
@@ -31,5 +32,48 @@ namespace myshop.Web.Controllers
            return RedirectToAction("CustomerHome","Customer");
         
         }
+
+        public async Task<IActionResult> RemoveItem(int Id) {
+
+            var isRemoved = _cartService.RemoveItem(Id, HttpContext.Session);
+            if (isRemoved)
+            {
+                return RedirectToAction("Index");
+
+            }
+            else {
+                return RedirectToAction("Index");
+            
+            
+            }
+        
+        }
+
+        public IActionResult ClearCart() {
+
+
+            var isCleared=  _cartService.removeAllProductsFromCart(HttpContext.Session);
+            return RedirectToAction("Index");
+        
+        }
+
+        [HttpPost]
+        public IActionResult IncreaseQuantity([FromBody]ChangeQuantity obj) {
+            var IncreaseResult = _cartService.IncreasedProduct(obj.ProductId, obj.Quantity, HttpContext.Session);
+        
+          return RedirectToAction("Index");
+        
+        }
+
+        [HttpPost]
+        public IActionResult DecreaseQuantity([FromBody] ChangeQuantity obj)
+        {
+            var IncreaseResult = _cartService.DecreaseProduct(obj.ProductId, obj.Quantity, HttpContext.Session);
+
+            return RedirectToAction("Index");
+
+        }
+
+
     }
 }

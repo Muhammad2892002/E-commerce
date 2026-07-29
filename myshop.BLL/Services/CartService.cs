@@ -50,7 +50,7 @@ namespace myshop.BLL.Services
         }
 
 
-        public async Task<List<Cart>> GetAllProductFromCart(ISession session) { 
+        public  List<Cart> GetAllProductFromCart(ISession session) { 
            
             List<Cart>cartItems=new List<Cart>();
             foreach (var key in session.Keys) {
@@ -75,6 +75,118 @@ namespace myshop.BLL.Services
         
         
         }
+
+
+
+        public bool RemoveItem(int id,ISession session) {
+
+            var item = session.GetString($"CartItem-{id}");
+            
+            if (item != null) {
+               
+             
+                session.Remove($"CartItem-{id}");
+                return true;
+            
+            }
+            else { 
+              
+                return false;
+            
+            }
+        
+        
+        
+        
+        }
+
+
+         public bool removeAllProductsFromCart(ISession session) { 
+            session.Clear();
+            return true;
+        
+        
+        
+        
+        
+        }
+
+
+        public async Task<bool> IncreasedProduct(int productId, int quantity, ISession session) {
+
+
+            var ProductAsJson = session.GetString($"CartItem-{productId}");
+            Cart product;
+            if (ProductAsJson != null)
+            {
+                product = JsonConvert.DeserializeObject<Cart>(ProductAsJson);
+                product.Quantity=quantity;
+                var updatedQuantity=JsonConvert.SerializeObject(product);
+                session.SetString($"CartItem-{productId}",updatedQuantity);
+
+
+
+
+                return true;
+
+
+
+
+
+            }
+            else
+            {
+                return false;
+
+
+            }
+
+
+
+
+
+
+        }
+
+        public async Task<bool> DecreaseProduct(int productId, int quantity, ISession session) {
+            var ProductAsJson = session.GetString($"CartItem-{productId}");
+            Cart product;
+            if (ProductAsJson != null)
+            {
+                product = JsonConvert.DeserializeObject<Cart>(ProductAsJson);
+                product.Quantity = quantity;
+                var updatedQuantity = JsonConvert.SerializeObject(product);
+                session.SetString($"CartItem-{productId}", updatedQuantity);
+
+
+
+
+                return true;
+
+
+
+
+
+            }
+            else
+            {
+                return false;
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+        }
+
+
 
 
 
