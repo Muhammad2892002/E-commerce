@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using myshop.BLL.Services;
 using myshop.Domain.Models;
+using Newtonsoft.Json;
 using System.Runtime.CompilerServices;
 
 namespace myshop.Web.Controllers
@@ -27,8 +28,10 @@ namespace myshop.Web.Controllers
 
             var allProductsDto = await _productService.GetAllProducts();
             var allProducts = _mapper.Map<List<ProductVM>>(allProductsDto);
+        
+           
 
-            return View();
+            return View(allProducts);
 
         }
 
