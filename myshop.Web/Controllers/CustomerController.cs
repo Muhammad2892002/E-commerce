@@ -28,7 +28,7 @@ namespace myshop.Web.Controllers
             var allProductsDto = await _productService.GetAllProducts();
             var allProducts = _mapper.Map<List<ProductVM>>(allProductsDto);
 
-            return View(allProducts);
+            return View();
 
         }
 
