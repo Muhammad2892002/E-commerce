@@ -102,7 +102,8 @@ Update-Database
 
 Images :
 Display products to customer
-<img width="938" height="446" alt="image" src="https://github.com/user-attachments/assets/f961fcf1-fb02-4742-a6ff-5dfb5af372d3" />
+<img width="950" height="456" alt="image" src="https://github.com/user-attachments/assets/70de88c7-b38e-4e76-b557-cb21a49b9604" />
+<img width="950" height="284" alt="image" src="https://github.com/user-attachments/assets/4058b0a4-5b1b-4918-aef5-ae4f1e4d8e95" />
 
 Customer cart
 <img width="953" height="408" alt="image" src="https://github.com/user-attachments/assets/4b970589-4069-4425-a703-e90eaa5d8b92" />
