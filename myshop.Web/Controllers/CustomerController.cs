@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using myshop.BLL.IServices;
 using myshop.BLL.Services;
 using myshop.Domain.Models;
 using Newtonsoft.Json;
@@ -10,12 +11,12 @@ namespace myshop.Web.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ProductServices _productService;
+        private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public CustomerController(ProductServices productServices, IMapper mapper) { 
+        public CustomerController(IProductService productService, IMapper mapper) { 
            
-            _productService = productServices;
+            _productService = productService;
             _mapper = mapper;
         
         

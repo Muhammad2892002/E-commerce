@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using myshop.BLL.Dto;
+using myshop.BLL.IServices;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Models;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace myshop.BLL.Services
 {
-    public class AccountServices
+    public class AccountServices : IAccountService
     {
         private readonly IMapper _mapper;
         private readonly IAccountRepo _accountRepo;

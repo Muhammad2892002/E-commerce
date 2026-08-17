@@ -12,6 +12,7 @@ using myshop.BLL.ApplicationServices.Interfaces;
 using myshop.Web.ViewModels;
 using X.PagedList;
 using static System.Net.Mime.MediaTypeNames;
+using myshop.BLL.IServices;
 
 
 namespace myshop.Web.Areas.Admin.Controllers
@@ -23,18 +24,18 @@ namespace myshop.Web.Areas.Admin.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFileService _fileService;
         private readonly  string _rootPath = "";
-        private readonly CategoryServices _categoryServices;
-        private readonly ProductServices _productServices;
+        private readonly ICategoryService _categoryServices;
+        private readonly IProductService _productServices;
         private readonly IMapper _mapper;
         public static List<ProductVM>? allProducts;
 
-        public ProductController(IWebHostEnvironment webHostEnvironment, CategoryServices catSer, IMapper mapper, ProductServices productservice,IFileService fileService)
+        public ProductController(IWebHostEnvironment webHostEnvironment, ICategoryService categoryServices, IMapper mapper, IProductService productService, IFileService fileService)
         {
             _mapper = mapper;
 
             _webHostEnvironment = webHostEnvironment;
-            _categoryServices = catSer;
-            _productServices = productservice;
+            _categoryServices = categoryServices;
+            _productServices = productService;
             _fileService = fileService;
             _rootPath = _webHostEnvironment.WebRootPath;
         }

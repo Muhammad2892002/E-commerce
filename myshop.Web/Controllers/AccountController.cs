@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using myshop.BLL.Dto;
+using myshop.BLL.IServices;
 using myshop.BLL.Services;
 using myshop.Web.ViewModels;
 using Stripe;
@@ -11,10 +12,10 @@ namespace myshop.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IMapper mapper;
-        private readonly AccountServices accountService;
+        private readonly IAccountService accountService;
 
 
-        public AccountController(IMapper mapper,AccountServices service)
+        public AccountController(IMapper mapper,IAccountService service)
         {
             this.mapper = mapper;
             accountService = service;

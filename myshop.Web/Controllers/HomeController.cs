@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using myshop.BLL.IServices;
 using myshop.BLL.Services;
 using myshop.DAL.Data;
 using myshop.Domain.Models;
@@ -12,12 +13,12 @@ namespace myshop.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ProductServices _productService;
+        private readonly IProductService _productService;
 
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger,ProductServices productService,IMapper mapper)
+        public HomeController(ILogger<HomeController> logger,IProductService productService,IMapper mapper)
 
         {
             _productService = productService;

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using myshop.BLL.Dto;
+using myshop.BLL.IServices;
 using myshop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace myshop.BLL.Services
 {
-    public class UserManagmentServices
+    public class UserManagmentServices : IUserManagmentService
     {
         private readonly IUserManagment _userManagment;
         private readonly IMapper _mapper;

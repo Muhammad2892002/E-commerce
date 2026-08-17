@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using myshop.BLL.ApplicationServices.Interfaces;
 using myshop.BLL.Dto;
+using myshop.BLL.IServices;
 using myshop.DAL.Interfaces;
 using myshop.Domain.Models;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace myshop.BLL.Services
 {
     
-    public class ProductServices
+    public class ProductServices : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

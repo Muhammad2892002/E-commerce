@@ -41,12 +41,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddHttpContextAccessor();
 //DI here---------------------------------------------------------------
-builder.Services.AddScoped<ApplicationDbContext>();
-builder.Services.AddScoped<CategoryServices>();
-builder.Services.AddScoped<ProductServices>();
-builder.Services.AddScoped<AccountServices>();
+//builder.Services.AddScoped<ApplicationDbContext>();
+builder.Services.AddScoped<ICategoryService,CategoryServices>();
+builder.Services.AddScoped<IProductService,ProductServices>();
+builder.Services.AddScoped<IAccountService,AccountServices>();
 builder.Services.AddScoped<ICartService,CartService>();
-builder.Services.AddScoped<UserManagmentServices>();
+builder.Services.AddScoped<IUserManagmentService,UserManagmentServices>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IAccountRepo, AccounttRepo>();
 builder.Services.AddScoped<IFileService,HandlingFiles>();

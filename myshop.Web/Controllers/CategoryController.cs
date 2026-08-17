@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using myshop.BLL.Dto;
+using myshop.BLL.IServices;
 using myshop.BLL.Services;
 using myshop.DAL.Data;
 using myshop.DAL.Interfaces;
@@ -14,12 +15,12 @@ namespace myshop.Web.Areas.Admin.Controllers
     [Authorize(Policy= "AdminOnly")]
     public class CategoryController : Controller
     {
-        private readonly CategoryServices _category;
+        private readonly ICategoryService _category;
         private readonly IMapper _mapper;
 
     
 
-        public CategoryController(CategoryServices category,IMapper maper)
+        public CategoryController(ICategoryService category,IMapper maper)
         {
             _category = category;
             _mapper = maper;

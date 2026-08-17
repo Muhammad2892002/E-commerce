@@ -1,19 +1,20 @@
-﻿using System;
+﻿using AutoMapper;
+using myshop.BLL.Dto;
+using myshop.BLL.IServices;
+using myshop.DAL.Interfaces;
+using myshop.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using myshop.BLL.Dto;
-using myshop.DAL.Interfaces;
-using myshop.Domain.Models;
 
 
 
 
 namespace myshop.BLL.Services
 {
-    public class CategoryServices
+    public class CategoryServices : ICategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
